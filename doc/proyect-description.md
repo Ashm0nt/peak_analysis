@@ -24,7 +24,7 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
         -   Archivo de picos que contiene la información de las regiones de unión de cada factor de transcripción (ver sección "Archivo de Picos" al final de la sección de requisitos).
         -   Archivo de la secuencia del genoma de _E. coli_ en formato FASTA.
     -   Validar el formato de entrada de los archivos de entrada.
-        - Verificar que el "Archivo de picos" tenga las columnas necesarios para el correcto procesamiento.
+        - Verificar que el "Archivo de picos" tenga las columnas necesarias para el correcto procesamiento.
     -   Añadir un argumento para especificar el directorio de salida donde se almacenarán los archivos generados.
       
 2.  **Extracción y Procesamiento de Secuencias:**
@@ -36,6 +36,9 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
     
     -   Crear archivos FASTA individuales para cada `TF_name`. Los nombres de los archivos deben coincidir con el `TF_name` y usar la extensión `.fa`.
     -   Almacenar estos archivos en el directorio de salida especificado.
+  
+4. **Manejo de Errores**
+    - El manejo de errores se puede consultar en el archivo "test_cases"
     
 
 
