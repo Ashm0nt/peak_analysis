@@ -156,31 +156,49 @@ Este archivo contiene información crucial sobre las regiones de unión de los 1
 1.  **Lectura de Entradas:**
     
     -   Cargar el archivo de picos y el archivo FASTA del genoma.
+       - Verificar que los archivos estén correctamente formateados
     -   Obtener el directorio de salida desde la línea de comandos.
+       - Verificar que el directorio de salida exista, si no exites crear uno
+    
 2.  **Procesamiento de Datos:**
     
     -   Leer cada fila del archivo de picos.
     -   Extraer los campos `TF_name`, `Peak_start`, `Peak_end` para cada entrada.
     -   Para cada `TF_name`, usar las posiciones `Peak_start` y `Peak_end` para extraer la secuencia correspondiente del archivo FASTA del genoma.
+  
+    
 3.  **Generación de FASTA:**
     
     -   Agrupar las secuencias extraídas por `TF_name`.
     -   Crear un archivo FASTA por cada `TF_name` en el directorio de salida con la misma estructura `<TF_name>.fa`.
+    -   Si no se puedo registrar la advertencia/error
+
+4. **Manejo de errores**
+    - Capturar y registrar errores y advertencias en un archivo de log.
+    - Generar un reporte al final de la ejecución
 
 
 **Algoritmo**
 
 ```
 1. Inicio
-2. Leer archivo de picos
-3. Para cada registro:
+2. Validar archivo de picos y archivo FASTA del genoma
+3. Leer archivo de picos
+4. Para cada registro:
    a. Obtener TF_name, Peak_start, Peak_end
-   b. Extraer secuencia del genoma usando Peak_start y Peak_end
-   c. Agrupar secuencias por TF_name
-4. Por cada TF_name:
-   a. Crear archivo FASTA
-   b. Escribir secuencias en archivo
-5. Fin
+   b. Si Peak_start y Peak_end son válidos:
+      i. Extraer secuencia del genoma usando Peak_start y Peak_end
+      ii. Agrupar secuencias por TF_name
+   c. Si no:
+      i. Registrar advertencia en el archivo de log
+5. Por cada TF_name:
+   a. Si hay secuencias válidas:
+      i. Crear archivo FASTA
+      ii. Escribir secuencias en archivo
+   b. Si no:
+      i. Registrar advertencia en el archivo de log
+6. Generar reporte de ejecución
+7. Fin
 ```
 
 #### Módulo 2: Automatizador del Análisis con `meme`
@@ -192,29 +210,42 @@ Este archivo contiene información crucial sobre las regiones de unión de los 1
 1.  **Lectura de Entradas:**
     
     - Directorio con archivos fasta.
+        - Verificar que lo archivos no esten vacíos 
     
 2.  **Generación de Comandos:**
     
     -   Iterar sobre cada archivo `.fa` en el directorio.
     -   Generar una línea de comando para ejecutar `meme` usando cada archivo FASTA.
     -   Incluir opciones necesarias (por ejemplo, `-oc <output_directory>`, `-mod oops`, etc.) y asegurar nombrar el directorio de salida para cada ejecución de `meme`.
+    -   Imprimir el comando resultante en pantalla.
+    
 3.  **Salida del Script:**
-    - salida a pantalla
+    - Redirección de cada comando a un archivo.
+        - Creación de un script de shell que contenga todos los comandos generados.
+        - Asegurar que el archivo sea ejecutable
+     
+        
+4. **Manejo de Errores**
+    - Capturar y registrar errores durante la ejecución
+    - Generar un reporte al final de la ejecucuón 
     
 
 **Algoritmo:**
 
 ```plaintext
 1. Inicio
-2. Leer todos los archivos FASTA en el directorio
-3. Para cada archivo FASTA:
-   a. Formar comando: meme <archivo_fasta> -oc <nombre_directorio> ... 
-   b. Imprimir comando
-4. Redireccionar salida a un archivo script: run_meme.sh
-5. Fin
+2. Validar archivos FASTA en el directorio
+3. Leer todos los archivos FASTA en el directorio
+4. Para cada archivo FASTA:
+   a. Si el archivo no está vacío:
+      i. Formar comando: meme <archivo_fasta> -oc <nombre_directorio> ...
+      ii. Imprimir comando
+   b. Si no:
+      i. Registrar advertencia en el archivo de log
+5. Redireccionar salida a un archivo script: run_meme.sh
+6. Generar reporte de ejecución
+7. Fin
 ```
-
-
 
 ### Diagrama de Caso de Uso (PlantUML) para Visualizar el Proceso:
 
@@ -226,20 +257,26 @@ actor "Usuario" as usuario
 
 rectangle "Sistema de Extracción y Creación de FASTA (Python)" {
     usecase "Leer archivo de picos y genoma FASTA" as UC1
+    usecase "Validar archivos de entrada" as UC1.1
     usecase "Extraer y agrupar secuencias por TF_name" as UC2
     usecase "Generar archivos FASTA" as UC3
+    usecase "Manejar errores de entrada" as UC4
 }
 
 rectangle "Script de Automatización de meme (Shell)" {
-    usecase "Leer directorio de archivos FASTA" as UC4
-    usecase "Generar script de comandos meme" as UC5
+    usecase "Leer directorio de archivos FASTA" as UC5
+    usecase "Generar script de comandos meme" as UC6
+    usecase "Manejar errores de ejecución" as UC7
 }
 
 usuario --> UC1 : Ejecuta script Python
-UC1 --> UC2
+UC1 --> UC1.1 : Valida archivos
+UC1.1 --> UC2 : Si archivos son válidos
 UC2 --> UC3 : Guarda archivos FASTA
-usuario --> UC4 : Ejecuta script Shell
-UC4 --> UC5 : Crea script de ejecución de meme
+UC1.1 --> UC4 : Si archivos son inválidos
+usuario --> UC5 : Ejecuta script Shell
+UC5 --> UC6 : Crea script de ejecución de meme
+UC5 --> UC7 : Maneja errores de ejecución
 
 @enduml
 ```
@@ -247,16 +284,23 @@ UC4 --> UC5 : Crea script de ejecución de meme
 En formato marmaid, que stackEdit sí reconoce.
 
 ```mermaid
-%% Diagrama de Casos de Uso en Mermaid
-%% Representa la interacción del usuario con el sistema de extracción y creación de FASTA
+%% Diagrama de Flujo para el Proyecto Completo (Python + Shell)
+%% Representa el proceso de extracción de secuencias y generación de comandos para meme
 
 graph TD
   usuario["🧑 Usuario"] -->|Ejecuta script Python| UC1["📂 Leer archivo de picos y genoma FASTA"]
-  UC1 --> UC2["🔍 Extraer y agrupar secuencias por TF_name"]
-  UC2 -->|Guarda archivos FASTA| UC3["📄 Generar archivos FASTA"]
+  UC1 --> UC2["✅ Validar archivos de entrada"]
+  UC2 -->|Si archivos son válidos| UC3["🔍 Extraer y agrupar secuencias por TF_name"]
+  UC3 --> UC4["📄 Generar archivos FASTA"]
+  UC2 -->|Si archivos son inválidos| UC5["⚠️ Manejar errores de entrada"]
   
-  usuario -->|Ejecuta script Shell| UC4["📂 Leer directorio de archivos FASTA"]
-  UC4 -->|Crea script de ejecución de meme| UC5["⚙️ Generar script de comandos meme"]
+  usuario -->|Ejecuta script Shell| UC6["📂 Leer directorio de archivos FASTA"]
+  UC6 --> UC7["✅ Validar archivos FASTA"]
+  UC7 -->|Si archivos son válidos| UC8["⚙️ Generar script de comandos meme"]
+  UC8 --> UC9["📝 Escribir comandos en script"]
+  UC7 -->|Si archivos son inválidos| UC10["⚠️ Manejar errores de archivos"]
+  UC9 --> UC11["🚀 Script generado: run_meme.sh"]
+  UC10 --> UC12["📄 Registrar errores en log"]
 ```
 
 
