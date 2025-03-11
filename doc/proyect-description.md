@@ -16,7 +16,7 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
 
 ### Requisitos Funcionales:
 
-#### A. Extracción de Secuencias FASTA:
+#### A. *Extracción de Secuencias FASTA:*
     
 1.  **Entrada de Datos:**
    
@@ -44,9 +44,6 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
         - Generar un archivo que capture los errores, advertencias o eventos importantes durante la ejecucuión del programa
 
 
-    
-
-
 #### B. *Automatización del Análisis de Motivos:**
     
      
@@ -62,6 +59,21 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
     
     -   El módulo debe generar un script de shell que contiene todas las líneas de comandos necesarias para ejecutar `meme` en cada archivo FASTA.
     -   Este script debe grabarse en el directorio de trabajo actual con un nombre predefinido, como `run_meme.sh`.
+  
+
+#### C. *Reportes y Salidas: (opcional)* 
+
+1. **Reporte de Resumen:**
+    - El sistema debe generar un reporte resumen al final de la ejecución, indicando:
+          - Número de archivos FASTA generados.
+          - Número de picos procesados.
+          - Número de errores y advertencias encontrados.
+    - El reporte se debera guaradar como archivo de texto en el directorio de salida.
+
+2. **Archivo de configuración:**
+
+    - Se debe generar un archivo de configuración que contenga los parámetros utilizados durante la ejecucicón
+    - El archivo se debera guardar en el directorio de salida como un archivo de texto
     
 
 ### **Requisitos No Funcionales:**
