@@ -36,6 +36,7 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
     
     -   Crear archivos FASTA individuales para cada `TF_name`. Los nombres de los archivos deben coincidir con el `TF_name` y usar la extensión `.fa`.
     -   Almacenar estos archivos en el directorio de salida especificado.
+    -   Si no se especifica un directorio se debe crear automáticamente e informar al usuario.
   
 4. **Manejo de Errores**
     - El manejo de errores se puede consultar en el archivo "test_cases"
