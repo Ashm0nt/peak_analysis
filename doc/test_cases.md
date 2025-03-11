@@ -194,3 +194,47 @@ Error: the peak file is empty
     ```bash
         fasta_peaks/
     ```
+
+### Casos de Prueba para el Módulo 2: Comandos Shell
+    
+1. **Caso: Directorio de archivos FASTA no exite**
+
+   - **Entradas**
+        - Directorio de archivos FASTA inexistente.
+
+    - **Esperado**
+        - El sistema debe imprimir un mensaje de error: "Error: FASTA directory not found."
+
+    ```bash
+        generate_meme_script.sh -i fasta_peaks/ -o run_meme.sh
+    ```
+
+   ```
+       Error: FASTA directory not found.
+    ```
+   
+2. **Caso: Archivos FASTA con secuencias vacías**
+
+    - **Entrada**
+        - Directorio con archivos FASTA que contienen secuencias vacías.
+
+    - **Esperado**
+        - El sistema debe imprimir un mensaje de advertencia: "Warning: Empty sequence in FASTA file."
+        - Registrar la advertencia en el archivo de log (log.out).
+        - No se deben incluir comandos para los archivos FASTA con secuencias vacías en el script generado.
+     
+    ```bash
+        generate_meme_script.sh -i fasta_peaks/ -o run_meme.sh
+    ```
+    ```
+        Warning: Empty sequence in FASTA file. Check the log.out file.
+    ```
+    ```
+        #Dentro de log.out
+        Error: Invalid FASTA header - File: AraC.fa
+    ```
+
+
+    
+
+  
