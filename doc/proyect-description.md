@@ -40,6 +40,10 @@ El proyecto busca automatizar la extracción y el análisis de secuencias genóm
   
 4. **Manejo de Errores**
     - El manejo de errores se puede consultar en el archivo "test_cases"
+        - Se deben manejar errores comunes (archivos mal formateados, coordenadas inválidas, directorios inexistentes, etc.) y mostrar mensajes de error claros.
+        - Generar un archivo que capture los errores, advertencias o eventos importantes durante la ejecucuión del programa
+
+
     
 
 
