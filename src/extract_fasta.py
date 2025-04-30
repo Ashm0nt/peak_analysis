@@ -71,7 +71,7 @@ def lectura_peaks (peaks_path):
         raise FileNotFoundError(f"Archivo no encontrado: {peaks_path}")
     try: 
         with open (peaks_path) as arch_picos:
-            campos = arch_picos.readline().rstrip().split('\t')
+            campos = arch_picos.readline().strip('\n').split('\t')
 
             columnas_faltantes = [col for col in columnas_requeridas if col not in campos]
             #Valida que el archivo tenga las columnas necesarias
@@ -86,7 +86,7 @@ def lectura_peaks (peaks_path):
                 raise ValueError(f"Columna no encontrada: {str(e)}")
             
             for num_linea, linea in enumerate(arch_picos, 2):
-                linea = linea.rstrip()
+                linea = linea.strip()
                 #No se toman en cuenta lineas vacias
                 if not linea:
                     continue
@@ -98,10 +98,10 @@ def lectura_peaks (peaks_path):
 
                 try: 
                     tf = linea[idx_tf]
-                    start = linea[idx_start]
-                    end = linea[idx_end]
+                    start = int(linea[idx_start])
+                    end = int(linea[idx_end])
                     
-                    #Validat que las regiones no sean incongruentes
+                    #Validar que las regiones no sean incongruentes
                     if start >= end:
                         print(f"Linea {num_linea}: Start >= End ({start} >= {end}) - omitiendo")
                         continue
@@ -117,6 +117,37 @@ def lectura_peaks (peaks_path):
         return tf_coordenadas
     except Exception as e:
         raise Exception(f"Error al leer el archivo de picos: {str(e)}")
+
+def extraer_secuencias (tf_coordenadas, secuencia):
+    '''
+    Funcion que extrea secuencias genomicas basadas en coordenadas
+
+    Args:
+        tf_coordeadas (dic): Diccionario con las coordenadas por TF
+        secuencia (str): Genoma
+
+    Return:
+        tf_secuencias (dic): Diccionario con las secuencias de cada TF
+    '''
+
+    longitud_genoma = len(secuencia)
+
+    tf_secuencias = {}
+
+    for tf, coordenadas in tf_coordenadas.items():
+        tf_secuencias[tf] = []
+        for start, end in coordenadas:
+            #Validar coordenadas y guardar secuencia
+            if 0 <= start < longitud_genoma and start < end <= longitud_genoma:
+                pico_secuencia = secuencia [start:end]
+                tf_secuencias[tf].append(pico_secuencia)
+
+            else:
+                print(f"Advertencia: Coordenadas inválidas para {tf} (start: {start}, end: {end}). Omitiendo.")
+
+    return tf_secuencias
+
+
 
 
 
