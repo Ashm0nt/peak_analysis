@@ -23,28 +23,31 @@ def cargar_genoma(genoma_path):
         FileNotFoundError: Si el archivo no existe.
         ValueError: Si el archivo FASTA está vacío o tiene formato incorrecto.
     '''
+    #Verificacion de la ruta
     if not os.path.exits(genoma_path):
         raise FileNotFoundError(f"Archivo de genoma no encontrado: {genoma_path}")
     try:
         with open(genoma_path) as archivo:
             linea = archivo.readline()
 
+            #Verifica que el archivo sea formato FASTA
             if not linea.startswith('>'):
                 raise ValueError("Formato FASTA invalido: falta encabezado '>'")
                 
             for linea in archivo:
+                #Control de anotaciones posteriores
                 if linea.startswith ('>'):
-                    break
+                    continue
                 secuencia +=linea
-            
+            #Verifica que el archivo no este vacio
             if not secuencia:
                 raise ValueError("Archivo FASTA vacio")
         
         return secuencia
     
+    #Control de Error
     except Exception as e:
         raise ValueError(f"Error al leer archivo FASTA: {str(e)}")
 
 
-                
 
