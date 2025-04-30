@@ -7,6 +7,7 @@ Fecha: 01-Mayo-2025
 '''
 
 import os
+import logging
 import argparse
 
 def cargar_genoma(genoma_path):
@@ -16,7 +17,7 @@ def cargar_genoma(genoma_path):
     Args:
         genome_path (str): Ruta del archivo del genoma
     
-    Return: 
+    Returns: 
         secuencia (str): Secuencia del genoma como cadena de texto
     
     Raises: 
@@ -24,27 +25,37 @@ def cargar_genoma(genoma_path):
         ValueError: Si el archivo FASTA está vacío o tiene formato incorrecto.
     '''
     #Verificacion de la ruta 
-    if not os.path.exists(genoma_path):
+    if not os.path.isfile(genoma_path):
+        logging.error (f"Archivo de genoma no encontrados: {genoma_path}")
         raise FileNotFoundError(f"Archivo de genoma no encontrado: {genoma_path}")
     
-    with open(genoma_path) as archivo:
-        encabezado = archivo.readline()
+    try:
+        with open(genoma_path) as archivo:
+            encabezado = archivo.readline()
 
-        #Verifica que el archivo sea formato FASTA
-        if not encabezado.startswith('>'):
-            raise ValueError("Formato FASTA invalido: falta encabezado '>'")
+            #Verifica que el archivo sea formato FASTA
+            if not encabezado.startswith('>'):
+                logging.error ("Formato FASTA invalido: falta encabezado: '>")
+                raise ValueError("Formato FASTA invalido: falta encabezado '>'")
                 
-        secuencia = ''.join(
-            linea.strip()
-            for linea in archivo
-            if not linea.startswith('>')
-        )
+            secuencia = ''.join(
+                linea.strip().upper()
+                for linea in archivo
+                if not linea.startswith('>')
+            )
         
-         #Verifica que el archivo no este vacio
+            #Verifica que el archivo no este vacio
         if not secuencia:
+            logging.error("Archivo FASTA vacio")
             raise ValueError("Archivo FASTA vacio")
+    
+        logging.info(f"Genoma cargado correctamente. Longitud: {len(secuencia)}")
         
         return secuencia
+    
+    except UnicodeDecodeError:
+        logging.error("El archivo no parece ser un FASTA valido (problema de codificacion)")
+        raise ValueError("Error de codificacion: archivo no es texto plano")
     
 
 def lectura_peaks (peaks_path):
@@ -54,7 +65,7 @@ def lectura_peaks (peaks_path):
     Args:
         peaks_path (str): Ruta del archivo de picos
 
-    Return:
+    Returns:
         Lista de diccionarios con los datos para cada TF (star, end)
 
     Raises:
@@ -62,59 +73,88 @@ def lectura_peaks (peaks_path):
         ValueError: Si el formato del archivo es incorrecto
     '''
     tf_coordenadas= {}
+
+    estadisticas = {
+        'lineas_procesadas': 0,
+        'picos_validos': 0,
+        'errores': 0,
+        'advertencias': 0
+    }
+
     columnas_requeridas = ["TF_name", "Peak_start", "Peak_end"]
 
     #Validar la ruta del archivo
-    if not os.path.exists(peaks_path):
+    if not os.path.isfile(peaks_path):
+        logging.error(f"Archivo de picos no encontrado: {peaks_path}")
         raise FileNotFoundError(f"Archivo no encontrado: {peaks_path}")
-    try: 
+
+    try:
         with open (peaks_path) as arch_picos:
             campos = arch_picos.readline().strip('\n').split('\t')
-
             columnas_faltantes = [col for col in columnas_requeridas if col not in campos]
+            
             #Valida que el archivo tenga las columnas necesarias
             if columnas_faltantes:
+                logging.error(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas flatantes: {columnas_faltantes}")
                 raise ValueError(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas flatantes: {columnas_faltantes}")
             
-            try:
-                idx_tf = campos.index('TF_name')
-                idx_start = campos.index('Peak_start')
-                idx_end = campos.index('Peak_end')
-            except ValueError as e:
-                raise ValueError(f"Columna no encontrada: {str(e)}")
+            
+            idx_tf = campos.index('TF_name')
+            idx_start = campos.index('Peak_start')
+            idx_end = campos.index('Peak_end')
             
             for num_linea, linea in enumerate(arch_picos, 2):
-                linea = linea.strip()
+                estadisticas['lineas_procesadas'] += 1
+
                 #No se toman en cuenta lineas vacias
-                if not linea:
+                if not linea.strip():
+                    logging.debug(f"Linea {num_linea}: Vacia - omitiendo")
                     continue
-                linea = linea.split('\t')
-                #Si la linea tiene vacio un campo necesario
-                if not all(linea[idx] for idx in [idx_tf, idx_start, idx_end]):
-                    print(f"Linea {num_linea}: Campos requeridos vacíos - omitiendo")
-                    continue 
+
+                campos_linea = linea.split('\t').strip('\n')
 
                 try: 
-                    tf = linea[idx_tf]
-                    start = int(linea[idx_start])
-                    end = int(linea[idx_end])
+                    tf = campos_linea[idx_tf]
+                    start = int(campos_linea[idx_start])
+                    end = int(campos_linea[idx_end])
                     
                     #Validar que las regiones no sean incongruentes
+                    if not tf:
+                        logging.warning(f"Linea {num_linea}: Nombre de TF vacio")
+                        estadisticas['advertencias'] += 1
+                        continue
+
                     if start >= end:
-                        print(f"Linea {num_linea}: Start >= End ({start} >= {end}) - omitiendo")
+                        logging.warning(f"Linea {num_linea}: Start >= End ({start} >= {end})")
+                        estadisticas['advertencias'] += 1
                         continue
                     
                     if tf not in tf_coordenadas:
                         tf_coordenadas[tf] = []
                     tf_coordenadas[tf].append((start, end))
+                    estadisticas['picos_validos'] += 1
+
+                except ValueError as e:
+                    logging.warning(f"Linea {num_linea}: Error de formato -{str(e)}")
+                    estadisticas ['errores'] += 1
+
+                except IndexError:
+                    logging.warning(f"Linea {num_linea}: Campos insuficientes")
+                    estadisticas['errores'] += 1
                 
-                except ValueError:
-                    print(f"Línea {num_linea}: Valores numéricos inválidos - omitiendo")
-                    continue
-                
-        return tf_coordenadas
     except Exception as e:
-        raise Exception(f"Error al leer el archivo de picos: {str(e)}")
+        logging.error(f"Error inesperado procesando pico: {str(e)}")
+        raise        
+
+    logging.info(
+        f"Procesamiento completado. "
+        f"Lineas: {estadisticas['lineas_procesadas']}, "
+        f"Picos válidos: {estadisticas['picos_validos']}, "
+        f"Errores: {estadisticas['errores']}, "
+        f"Advertencias: {estadisticas['advertencias']}"
+    )
+
+    return tf_coordenadas
 
 def extraer_secuencias (tf_coordenadas, secuencia):
     '''
