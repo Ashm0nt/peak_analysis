@@ -23,31 +23,29 @@ def cargar_genoma(genoma_path):
         FileNotFoundError: Si el archivo no existe.
         ValueError: Si el archivo FASTA está vacío o tiene formato incorrecto.
     '''
-    #Verificacion de la ruta
-    if not os.path.exits(genoma_path):
+    #Verificacion de la ruta 
+    if not os.path.exists(genoma_path):
         raise FileNotFoundError(f"Archivo de genoma no encontrado: {genoma_path}")
-    try:
-        with open(genoma_path) as archivo:
-            linea = archivo.readline()
+    
+    with open(genoma_path) as archivo:
+        encabezado = archivo.readline()
 
-            #Verifica que el archivo sea formato FASTA
-            if not linea.startswith('>'):
-                raise ValueError("Formato FASTA invalido: falta encabezado '>'")
+        #Verifica que el archivo sea formato FASTA
+        if not encabezado.startswith('>'):
+            raise ValueError("Formato FASTA invalido: falta encabezado '>'")
                 
-            for linea in archivo:
-                #Control de anotaciones posteriores
-                if linea.startswith ('>'):
-                    continue
-                secuencia +=linea
-            #Verifica que el archivo no este vacio
-            if not secuencia:
-                raise ValueError("Archivo FASTA vacio")
+        secuencia = ''.join(
+            linea.strip()
+            for linea in archivo
+            if not linea.startswith('>')
+        )
+        
+         #Verifica que el archivo no este vacio
+        if not secuencia:
+            raise ValueError("Archivo FASTA vacio")
         
         return secuencia
     
-    #Control de Error
-    except Exception as e:
-        raise ValueError(f"Error al leer archivo FASTA: {str(e)}")
 
 def lectura_peaks (peaks_path):
     '''
@@ -185,6 +183,12 @@ def fasta_archivos(tf_secuencias, output_dir="TF_picos_fasta", chars_linea=80):
             print(f"Error generando archivo para {tf}: {str(e)}")
     
     return archivos_generados
+
+
+if __name__ == "__main__":
+
+
+
 
 
 
