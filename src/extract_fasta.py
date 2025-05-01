@@ -279,6 +279,7 @@ def fasta_archivos(tf_secuencias, output_dir="TF_picos_fasta", chars_linea=80):
 
 if __name__ == "__main__":
 
+
     parser = argparse.ArgumentParser(
         description="Extrae secuencias FASTA de sitios de unión de factores de transcripción en E. coli."
     )
@@ -297,10 +298,10 @@ if __name__ == "__main__":
         logging.info("Iniciando el procesamiento de datos")
 
         # Cargar genoma
-        genoma = cargar_genoma(args.genoma)
+        genoma = cargar_genoma(args.genome)
 
         # Leer picos
-        coordenadas = lectura_peaks(args.picos)
+        coordenadas = lectura_peaks(args.peaks)
 
         # Extraer secuencias
         secuencias = extraer_secuencias(coordenadas, genoma)
