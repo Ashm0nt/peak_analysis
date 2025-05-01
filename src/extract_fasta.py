@@ -132,6 +132,13 @@ def lectura_peaks (peaks_path):
                         estadisticas['picos_invalidos'] += 1
                         logging.warning(f"Línea {num_linea}: campos vacíos - omitida")
                         continue
+
+                    if start >= end:
+                        estadisticas['errores']['coordenadas'] += 1
+                        estadisticas['picos_invalidos'] += 1
+                        logging.warning(f"Línea {num_linea}: Start >= End ({start} >= {end})")
+                        continue
+
                     
                     if tf not in tf_coordenadas:
                         tf_coordenadas[tf] = []
@@ -152,13 +159,18 @@ def lectura_peaks (peaks_path):
         raise        
 
     logging.info(
-        f"Procesamiento completado. "
-        f"Lineas: {estadisticas['lineas_procesadas']}, "
-        f"Picos válidos: {estadisticas['picos_validos']}, "
-        f"Errores: {estadisticas['errores']}, "
-        f"Advertencias: {estadisticas['advertencias']}"
+        f"Resumen de procesamiento:\n"
+        f"  Lineas totales: {estadisticas['lineas_totales']}\n"
+        f"  Picos validos: {estadisticas['picos_validos']}\n"
+        f"  Picos inválidos: {estadisticas['picos_invalidos']}\n"
+        f"  Advertencias:\n"
+        f"    Líneas vacias: {estadisticas['advertencias']['lineas_vacias']}\n"
+        f"    Campos vacios: {estadisticas['advertencias']['campos_vacios']}\n"
+        f"  Errores:\n"
+        f"    Coordenadas invalidas: {estadisticas['errores']['coordenadas']}\n"
+        f"    Estructura incompleta: {estadisticas['errores']['estructura']}"
     )
-
+    
     return tf_coordenadas
 
 def extraer_secuencias (tf_coordenadas, secuencia):
@@ -176,22 +188,32 @@ def extraer_secuencias (tf_coordenadas, secuencia):
     longitud_genoma = len(secuencia)
 
     tf_secuencias = {}
-    estadisticas_picos = {
-        'picos_totales': 0,
-        'picos validos' : 0,
-        'picos invalidos': 0
+    estadisticas_secuencias = {
+        'sec_totales': 0,
+        'sec_validos' : 0,
+        'sec_invalidos': 0
     }
 
     for tf, coordenadas in tf_coordenadas.items():
         tf_secuencias[tf] = []
         for start, end in coordenadas:
+            estadisticas_secuencias['sec_totales'] += 1
             #Validar coordenadas y guardar secuencia
             if 0 <= start < longitud_genoma and start < end <= longitud_genoma:
                 pico_secuencia = secuencia [start:end]
                 tf_secuencias[tf].append(pico_secuencia)
+                estadisticas_secuencias['sec_validos'] += 1
 
             else:
-                print(f"Advertencia: Coordenadas inválidas para {tf} (start: {start}, end: {end}). Omitiendo.")
+                logging.warning(f"Coordenadas inválidas para {tf} (start: {start}, end: {end}). Omitiendo.")
+                estadisticas_secuencias['sec_invalidos'] += 1
+
+    logging.info(
+        f"Extracción de secuencias completada:\n"
+        f"  Picos totales: {estadisticas_secuencias['sec_totales']}\n"
+        f"  Picos válidos: {estadisticas_secuencias['sec_validos']}\n"
+        f"  Picos inválidos: {estadisticas_secuencias['sec_invalidos']}"
+    )
 
     return tf_secuencias
 
