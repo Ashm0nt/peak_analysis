@@ -12,8 +12,8 @@ Version:
     3.2
 
 Descripcion:
-    Script para extraer secuencias FASTA de sitios de unión de factores de transcripción
-    en E. coli sin usar módulos externos.
+    Script para extraer secuencias FASTA de sitios de union de factores de transcripcion en base a coordenadas obtenidas
+    a partir de experimentos ChIP-seq 
 
 Funcionalidad:
     1. Lee el archivo FASTA de entrada.
