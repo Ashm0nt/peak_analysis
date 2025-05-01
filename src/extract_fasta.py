@@ -90,11 +90,16 @@ def lectura_peaks (peaks_path):
     tf_coordenadas= {}
 
     estadisticas = {
-        'picos_totales': 0,
+        'lineas_totales': 0,
         'picos_totales': 0,
         'picos_invalidos': 0,
         'picos_validos': 0,
-        'errores': 0,
+        'errores': {
+            'coordenadas' : 0,
+            'estructura' : 0,
+            'formato' : 0     
+        },
+
         'advertencias': {
             'lineas_vacias': 0,
             'campos_vacios': 0,
@@ -115,7 +120,7 @@ def lectura_peaks (peaks_path):
 
             #Valida que el archivo tenga las columnas necesarias
             if columnas_faltantes:
-                estadisticas['errores'] += 1
+                estadisticas['errores']['formato'] += 1
                 logging.error(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas faltantes: {columnas_faltantes}")
                 raise ValueError(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas faltantes: {columnas_faltantes}")
             
@@ -162,12 +167,12 @@ def lectura_peaks (peaks_path):
 
                 except ValueError as e:
                     logging.warning(f"Linea {num_linea}: Error de formato -{str(e)}")
-                    estadisticas['errores']['coordenadas'] += 1
+                    estadisticas['errores']['formato'] += 1
                     estadisticas['picos_invalidos'] += 1
 
                 except IndexError:
                     logging.warning(f"Linea {num_linea}: Campos insuficientes")
-                    estadisticas['errores'] += 1
+                    estadisticas['errores']['estructura'] += 1
                 
     except Exception as e:
         logging.error(f"Error inesperado procesando pico: {str(e)}")
@@ -190,7 +195,7 @@ def lectura_peaks (peaks_path):
 
 def extraer_secuencias (tf_coordenadas, secuencia):
     '''
-    Funcion que extrea secuencias genomicas basadas en coordenadas
+    Funcion que extrae secuencias genomicas basadas en coordenadas
 
     Args:
         tf_coordenadas (dic): Diccionario con las coordenadas por TF
@@ -264,25 +269,47 @@ def fasta_archivos(tf_secuencias, output_dir="TF_picos_fasta", chars_linea=80):
                         arch_salida.write(f"{secuencia[j:j+chars_linea]}\n")
 
                     archivos_generados.append(nombre_archivo)
-            print(f"Archivo generado: {nombre_archivo} ({len(secuencias)} secuencias)")
+            logging.info(f"Archivo generado: {nombre_archivo} ({len(secuencias)} secuencias)")
             
         except Exception as e:
-            print(f"Error generando archivo para {tf}: {str(e)}")
+            logging.error(f"Error generando archivo para {tf}: {str(e)}")
     
     return archivos_generados
 
 
 if __name__ == "__main__":
 
+    parser = argparse.ArgumentParser(
+        description="Extrae secuencias FASTA de sitios de unión de factores de transcripción en E. coli."
+    )
+    parser.add_argument("-g", "--genome", required=True, help="Archivo FASTA del genoma de E. coli")
+    parser.add_argument("-p", "--peaks", required=True, help="Archivo con coordenadas de picos (TSV con columnas: TF_name, Peak_start, Peak_end)")
+    parser.add_argument("-o", "--output", default="TF_picos_fasta", help="Directorio de salida para los archivos FASTA")
+    parser.add_argument("-l", "--line_length", type=int, default=80, help="Número de caracteres por línea en el archivo FASTA")
+    parser.add_argument("--logs", default="logs", help="Directorio para archivos de log")
 
+    args = parser.parse_args()
 
+    # Configurar logging
+    configurar_logging(args.logs)
 
+    try:
+        logging.info("Iniciando el procesamiento de datos")
 
+        # Cargar genoma
+        genoma = cargar_genoma(args.genoma)
 
+        # Leer picos
+        coordenadas = lectura_peaks(args.picos)
 
+        # Extraer secuencias
+        secuencias = extraer_secuencias(coordenadas, genoma)
 
+        # Escribir archivos FASTA
+        archivos = fasta_archivos(secuencias, args.output, args.line_length)
 
-                
+        logging.info(f"Proceso completado. Archivos generados: {len(archivos)}")
 
-
-            
+    except Exception as e:
+        logging.error(f"Error durante la ejecución: {str(e)}")
+        exit(1)
