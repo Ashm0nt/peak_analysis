@@ -60,13 +60,13 @@ def cargar_genoma(genoma_path):
 
 def lectura_peaks (peaks_path):
     '''
-    Funcion que lee el archivo de picos y deculeve un diccionario con TF_name, start y end
+    Funcion que lee el archivo de picos y devuleve un diccionario con TF_name, start y end
     
     Args:
         peaks_path (str): Ruta del archivo de picos
 
     Returns:
-        Lista de diccionarios con los datos para cada TF (star, end)
+        Lista de diccionarios con los datos para cada TF (start, end)
 
     Raises:
         FileNotFoundError: Si el archivo no existe
@@ -75,10 +75,15 @@ def lectura_peaks (peaks_path):
     tf_coordenadas= {}
 
     estadisticas = {
-        'lineas_procesadas': 0,
+        'picos_totales': 0,
+        'picos_totales': 0,
+        'picos_invalidos': 0,
         'picos_validos': 0,
         'errores': 0,
-        'advertencias': 0
+        'advertencias': {
+            'lineas_vacias': 0,
+            'campos_vacios': 0,
+        }
     }
 
     columnas_requeridas = ["TF_name", "Peak_start", "Peak_end"]
@@ -90,13 +95,14 @@ def lectura_peaks (peaks_path):
 
     try:
         with open (peaks_path) as arch_picos:
-            campos = arch_picos.readline().strip('\n').split('\t')
+            campos = arch_picos.readline().rstrip('\n').split('\t')
             columnas_faltantes = [col for col in columnas_requeridas if col not in campos]
-            
+
             #Valida que el archivo tenga las columnas necesarias
             if columnas_faltantes:
-                logging.error(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas flatantes: {columnas_faltantes}")
-                raise ValueError(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas flatantes: {columnas_faltantes}")
+                estadisticas['errores'] += 1
+                logging.error(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas faltantes: {columnas_faltantes}")
+                raise ValueError(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas faltantes: {columnas_faltantes}")
             
             
             idx_tf = campos.index('TF_name')
@@ -104,29 +110,27 @@ def lectura_peaks (peaks_path):
             idx_end = campos.index('Peak_end')
             
             for num_linea, linea in enumerate(arch_picos, 2):
-                estadisticas['lineas_procesadas'] += 1
+                estadisticas['lineas_totales'] += 1
 
                 #No se toman en cuenta lineas vacias
                 if not linea.strip():
+                    estadisticas['advertencias']['lineas_vacias'] += 1
                     logging.debug(f"Linea {num_linea}: Vacia - omitiendo")
                     continue
 
-                campos_linea = linea.split('\t').strip('\n')
+                campos_linea = linea.rstrip('\n').split('\t')
 
                 try: 
                     tf = campos_linea[idx_tf]
                     start = int(campos_linea[idx_start])
                     end = int(campos_linea[idx_end])
+                    estadisticas['picos_totales'] += 1
                     
                     #Validar que las regiones no sean incongruentes
-                    if not tf:
-                        logging.warning(f"Linea {num_linea}: Nombre de TF vacio")
-                        estadisticas['advertencias'] += 1
-                        continue
-
-                    if start >= end:
-                        logging.warning(f"Linea {num_linea}: Start >= End ({start} >= {end})")
-                        estadisticas['advertencias'] += 1
+                    if not tf or not start or not end:
+                        estadisticas['advertencias']['campos_vacios'] += 1
+                        estadisticas['picos_invalidos'] += 1
+                        logging.warning(f"Línea {num_linea}: campos vacíos - omitida")
                         continue
                     
                     if tf not in tf_coordenadas:
@@ -136,7 +140,8 @@ def lectura_peaks (peaks_path):
 
                 except ValueError as e:
                     logging.warning(f"Linea {num_linea}: Error de formato -{str(e)}")
-                    estadisticas ['errores'] += 1
+                    estadisticas['errores']['coordenadas'] += 1
+                    estadisticas['picos_invalidos'] += 1
 
                 except IndexError:
                     logging.warning(f"Linea {num_linea}: Campos insuficientes")
@@ -161,7 +166,7 @@ def extraer_secuencias (tf_coordenadas, secuencia):
     Funcion que extrea secuencias genomicas basadas en coordenadas
 
     Args:
-        tf_coordeadas (dic): Diccionario con las coordenadas por TF
+        tf_coordenadas (dic): Diccionario con las coordenadas por TF
         secuencia (str): Genoma
 
     Return:
@@ -171,6 +176,11 @@ def extraer_secuencias (tf_coordenadas, secuencia):
     longitud_genoma = len(secuencia)
 
     tf_secuencias = {}
+    estadisticas_picos = {
+        'picos_totales': 0,
+        'picos validos' : 0,
+        'picos invalidos': 0
+    }
 
     for tf, coordenadas in tf_coordenadas.items():
         tf_secuencias[tf] = []
