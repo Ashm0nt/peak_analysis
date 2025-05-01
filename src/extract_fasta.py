@@ -7,8 +7,23 @@ Fecha: 01-Mayo-2025
 '''
 
 import os
+from datetime import datetime
 import logging
 import argparse
+
+def configurar_logging(output_dir="logs"):
+    """Configura el sistema de logging centralizado"""
+    os.makedirs(output_dir, exist_ok=True)
+    log_file = os.path.join(output_dir, f"log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+    
+    logging.basicConfig(
+        level=logging.INFO,
+        format='%(asctime)s - %(levelname)s - %(message)s',
+        handlers=[
+            logging.FileHandler(log_file),
+            logging.StreamHandler()
+        ]
+    )
 
 def cargar_genoma(genoma_path):
     '''
