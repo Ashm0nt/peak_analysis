@@ -142,8 +142,8 @@ def lectura_peaks (peaks_path):
 
                 try: 
                     tf = campos_linea[idx_tf]
-                    start = int(campos_linea[idx_start])
-                    end = int(campos_linea[idx_end])
+                    start = int(float(campos_linea[idx_start]))
+                    end = int(float(campos_linea[idx_end]))
                     estadisticas['picos_totales'] += 1
                     
                     #Validar que las regiones no sean incongruentes
@@ -264,11 +264,11 @@ def fasta_archivos(tf_secuencias, output_dir="TF_picos_fasta", chars_linea=80):
                 for i, secuencia in enumerate(secuencias, 1):
                     arch_salida.write(f">{tf}_pico_{i}_len={len(secuencia)}\n")
                     
-                    # Escribir secuencia en líneas de 80 caracteres (estándar FASTA)
+                    # Escribir secuencia en líneas de 80 caracteres (estandar FASTA)
                     for j in range(0, len(secuencia), chars_linea):
                         arch_salida.write(f"{secuencia[j:j+chars_linea]}\n")
 
-                    archivos_generados.append(nombre_archivo)
+            archivos_generados.append(nombre_archivo)
             logging.info(f"Archivo generado: {nombre_archivo} ({len(secuencias)} secuencias)")
             
         except Exception as e:
