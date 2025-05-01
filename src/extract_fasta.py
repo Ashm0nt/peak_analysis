@@ -1,9 +1,37 @@
 '''
-Script para extraer secuencias FASTA de sitios de unión de factores de transcripción
-en E. coli sin usar módulos externos.
+Nombre: 
+    extract_fasta
 
-Autor: Ashley Yael Montiel Vargas
-Fecha: 01-Mayo-2025
+Autor: 
+    Ashley Yael Montiel Vargas
+
+Fecha:
+     01-Mayo-2025
+
+Version:
+    3.2
+
+Descripcion:
+    Script para extraer secuencias FASTA de sitios de unión de factores de transcripción
+    en E. coli sin usar módulos externos.
+
+Funcionalidad:
+    1. Lee el archivo FASTA de entrada.
+    2. Extrae las secuencias y las guarda en archivos separados.
+    3. Los archivos generados se guardan en un directorio especificado por el usuario.
+    4. Los nombres de los archivos se asignan de manera secuencial como 'fragmento_001.fasta', 'fragmento_002.fasta', etc.
+
+Argumentos:
+    -g, --genome: Ruta al archivo FASTA de entrada
+    -p, --peaks: Ruta al archivo que contiene los picos de TFs
+    -o, --output: Directorio de salida de los archivos generados
+    --logs: Directorio de salida del log
+    -l, --line_lenght: Formato para las secuencias de fasta (opcional)
+
+Uso:
+    python3 extract_fasta.py -g ../data/E_coli_K12_MG1655_U00096.3.txt -p ../data/union_peaks_file.tsv -o ../results/ --logs ../doc 
+
+
 '''
 
 import os
@@ -225,6 +253,7 @@ def extraer_secuencias (tf_coordenadas, secuencia):
                 estadisticas_secuencias['sec_validos'] += 1
 
             else:
+                #Reportar coordenadas invalidas
                 logging.warning(f"Coordenadas inválidas para {tf} (start: {start}, end: {end}). Omitiendo.")
                 estadisticas_secuencias['sec_invalidos'] += 1
 
