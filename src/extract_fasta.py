@@ -9,7 +9,7 @@ Fecha:
      01-Mayo-2025
 
 Version:
-    3.2
+    4.0
 
 Descripcion:
     Script para extraer secuencias FASTA de sitios de union de factores de transcripcion en base a coordenadas obtenidas
@@ -39,19 +39,42 @@ from datetime import datetime
 import logging
 import argparse
 
-def configurar_logging(output_dir="logs"):
-    """Configura el sistema de logging centralizado"""
+def configurar_logging(output_dir="logs", verbose=False):
+    """Configura el sistema de logging avanzado usando solo la librería estándar
+    
+    Args:
+        output_dir (str): Directorio para los archivos de log
+        verbose (bool): Si es True, muestra mensajes DEBUG
+    """
     os.makedirs(output_dir, exist_ok=True)
     log_file = os.path.join(output_dir, f"log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
     
-    logging.basicConfig(
-        level=logging.INFO,
-        format='%(asctime)s - %(levelname)s - %(message)s',
-        handlers=[
-            logging.FileHandler(log_file),
-            logging.StreamHandler()
-        ]
-    )
+    # Crear logger específico para este módulo
+    logger = logging.getLogger('extract_fasta')
+    logger.setLevel(logging.DEBUG if verbose else logging.INFO)
+    
+    # Eliminar handlers existentes para evitar duplicados
+    for handler in logger.handlers[:]:
+        logger.removeHandler(handler)
+
+    # Formateador estándar
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    
+    # Handler para archivo (todos los niveles)
+    file_handler = logging.FileHandler(log_file)
+    file_handler.setFormatter(formatter)
+    file_handler.setLevel(logging.DEBUG)
+    
+    # Handler para consola (solo INFO y superior)
+    console_handler = logging.StreamHandler()
+    console_handler.setFormatter(formatter)
+    console_handler.setLevel(logging.INFO)
+    
+    # Añadir handlers
+    logger.addHandler(file_handler)
+    logger.addHandler(console_handler)
+    
+    return logger
 
 def cargar_genoma(genoma_path):
     '''
@@ -67,9 +90,12 @@ def cargar_genoma(genoma_path):
         FileNotFoundError: Si el archivo no existe.
         ValueError: Si el archivo FASTA está vacío o tiene formato incorrecto.
     '''
+
+    logger = logging.getLogger('extract_fasta.cargar_genoma')
+
     #Verificacion de la ruta 
     if not os.path.isfile(genoma_path):
-        logging.error (f"Archivo de genoma no encontrados: {genoma_path}")
+        logger.error (f"Archivo de genoma no encontrados: {genoma_path}")
         raise FileNotFoundError(f"Archivo de genoma no encontrado: {genoma_path}")
     
     try:
@@ -78,7 +104,7 @@ def cargar_genoma(genoma_path):
 
             #Verifica que el archivo sea formato FASTA
             if not encabezado.startswith('>'):
-                logging.error ("Formato FASTA invalido: falta encabezado: '>")
+                logger.error ("Formato FASTA invalido: falta encabezado: '>")
                 raise ValueError("Formato FASTA invalido: falta encabezado '>'")
                 
             secuencia = ''.join(
@@ -89,15 +115,15 @@ def cargar_genoma(genoma_path):
         
             #Verifica que el archivo no este vacio
         if not secuencia:
-            logging.error("Archivo FASTA vacio")
+            logger.error("Archivo FASTA vacio")
             raise ValueError("Archivo FASTA vacio")
     
-        logging.info(f"Genoma cargado correctamente. Longitud: {len(secuencia)}")
+        logger.info(f"Genoma cargado correctamente. Longitud: {len(secuencia)}")
         
         return secuencia
     
     except UnicodeDecodeError:
-        logging.error("El archivo no parece ser un FASTA valido (problema de codificacion)")
+        logger.error("El archivo no parece ser un FASTA valido (problema de codificacion)")
         raise ValueError("Error de codificacion: archivo no es texto plano")
     
 
@@ -115,6 +141,8 @@ def lectura_peaks (peaks_path):
         FileNotFoundError: Si el archivo no existe
         ValueError: Si el formato del archivo es incorrecto
     '''
+    logger = logging.getLogger('extract_fasta.lectura_peaks')
+
     tf_coordenadas= {}
 
     estadisticas = {
@@ -138,7 +166,7 @@ def lectura_peaks (peaks_path):
 
     #Validar la ruta del archivo
     if not os.path.isfile(peaks_path):
-        logging.error(f"Archivo de picos no encontrado: {peaks_path}")
+        logger.error(f"Archivo de picos no encontrado: {peaks_path}")
         raise FileNotFoundError(f"Archivo no encontrado: {peaks_path}")
 
     try:
@@ -149,7 +177,7 @@ def lectura_peaks (peaks_path):
             #Valida que el archivo tenga las columnas necesarias
             if columnas_faltantes:
                 estadisticas['errores']['formato'] += 1
-                logging.error(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas faltantes: {columnas_faltantes}")
+                logger.error(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas faltantes: {columnas_faltantes}")
                 raise ValueError(f"El archivo no cuenta con las columnas requeridas para el analisis. Columnas faltantes: {columnas_faltantes}")
             
             
@@ -163,7 +191,7 @@ def lectura_peaks (peaks_path):
                 #No se toman en cuenta lineas vacias
                 if not linea.strip():
                     estadisticas['advertencias']['lineas_vacias'] += 1
-                    logging.debug(f"Linea {num_linea}: Vacia - omitiendo")
+                    logger.debug(f"Linea {num_linea}: Vacia - omitiendo")
                     continue
 
                 campos_linea = linea.rstrip('\n').split('\t')
@@ -178,13 +206,13 @@ def lectura_peaks (peaks_path):
                     if not tf or not start or not end:
                         estadisticas['advertencias']['campos_vacios'] += 1
                         estadisticas['picos_invalidos'] += 1
-                        logging.warning(f"Línea {num_linea}: campos vacíos - omitida")
+                        logger.warning(f"Línea {num_linea}: campos vacios - omitida")
                         continue
 
                     if start >= end:
                         estadisticas['errores']['coordenadas'] += 1
                         estadisticas['picos_invalidos'] += 1
-                        logging.warning(f"Línea {num_linea}: Start >= End ({start} >= {end})")
+                        logger.warning(f"Línea {num_linea}: Start >= End ({start} >= {end})")
                         continue
 
                     
@@ -194,19 +222,19 @@ def lectura_peaks (peaks_path):
                     estadisticas['picos_validos'] += 1
 
                 except ValueError as e:
-                    logging.warning(f"Linea {num_linea}: Error de formato -{str(e)}")
+                    logger.warning(f"Linea {num_linea}: Error de formato -{str(e)}")
                     estadisticas['errores']['formato'] += 1
                     estadisticas['picos_invalidos'] += 1
 
                 except IndexError:
-                    logging.warning(f"Linea {num_linea}: Campos insuficientes")
+                    logger.warning(f"Linea {num_linea}: Campos insuficientes")
                     estadisticas['errores']['estructura'] += 1
                 
     except Exception as e:
-        logging.error(f"Error inesperado procesando pico: {str(e)}")
+        logger.error(f"Error inesperado procesando pico: {str(e)}")
         raise        
 
-    logging.info(
+    logger.info(
         f"Resumen de procesamiento:\n"
         f"  Lineas totales: {estadisticas['lineas_totales']}\n"
         f"  Picos validos: {estadisticas['picos_validos']}\n"
@@ -233,6 +261,8 @@ def extraer_secuencias (tf_coordenadas, secuencia):
         tf_secuencias (dic): Diccionario con las secuencias de cada TF
     '''
 
+    logger = logging.getLogger('extract_fasta.extraer_secuencias')
+
     longitud_genoma = len(secuencia)
 
     tf_secuencias = {}
@@ -254,10 +284,10 @@ def extraer_secuencias (tf_coordenadas, secuencia):
 
             else:
                 #Reportar coordenadas invalidas
-                logging.warning(f"Coordenadas inválidas para {tf} (start: {start}, end: {end}). Omitiendo.")
+                logger.warning(f"Coordenadas invalidas para {tf} (start: {start}, end: {end}). Omitiendo.")
                 estadisticas_secuencias['sec_invalidos'] += 1
 
-    logging.info(
+    logger.info(
         f"Extracción de secuencias completada:\n"
         f"  Picos totales: {estadisticas_secuencias['sec_totales']}\n"
         f"  Picos válidos: {estadisticas_secuencias['sec_validos']}\n"
@@ -276,6 +306,9 @@ def fasta_archivos(tf_secuencias, output_dir="TF_picos_fasta", chars_linea=80):
     Return: 
         Directorio con los archivos fasta generados
     '''
+
+    logger = logging.getLogger('extract_fasta.fasta_archivos')
+    
     #Crear directorio si no existe
     os.makedirs(output_dir, exist_ok=True)
 
@@ -298,10 +331,10 @@ def fasta_archivos(tf_secuencias, output_dir="TF_picos_fasta", chars_linea=80):
                         arch_salida.write(f"{secuencia[j:j+chars_linea]}\n")
 
             archivos_generados.append(nombre_archivo)
-            logging.info(f"Archivo generado: {nombre_archivo} ({len(secuencias)} secuencias)")
+            logger.info(f"Archivo generado: {nombre_archivo} ({len(secuencias)} secuencias)")
             
         except Exception as e:
-            logging.error(f"Error generando archivo para {tf}: {str(e)}")
+            logger.error(f"Error generando archivo para {tf}: {str(e)}")
     
     return archivos_generados
 
@@ -317,14 +350,15 @@ if __name__ == "__main__":
     parser.add_argument("-o", "--output", default="TF_picos_fasta", help="Directorio de salida para los archivos FASTA")
     parser.add_argument("-l", "--line_length", type=int, default=80, help="Número de caracteres por línea en el archivo FASTA")
     parser.add_argument("--logs", default="logs", help="Directorio para archivos de log")
+    parser.add_argument("-v", "--verbose", action="store_true", help="Mostrar mensajes detallados")
 
     args = parser.parse_args()
 
     # Configurar logging
-    configurar_logging(args.logs)
+    logger = configurar_logging(args.logs, args.verbose)
 
     try:
-        logging.info("Iniciando el procesamiento de datos")
+        logger.info("Iniciando el procesamiento de datos")
 
         # Cargar genoma
         genoma = cargar_genoma(args.genome)
@@ -338,8 +372,8 @@ if __name__ == "__main__":
         # Escribir archivos FASTA
         archivos = fasta_archivos(secuencias, args.output, args.line_length)
 
-        logging.info(f"Proceso completado. Archivos generados: {len(archivos)}")
+        logger.info(f"Proceso completado. Archivos generados: {len(archivos)}")
 
     except Exception as e:
-        logging.error(f"Error durante la ejecución: {str(e)}")
+        logger.exception(f"Error durante la ejecución: {str(e)}")
         exit(1)
