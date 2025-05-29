@@ -11,7 +11,7 @@ Módulos disponibles:
 
 from .genome import cargar_genoma
 from .peaks import lectura_peaks, extraer_secuencias
-from .io_utils import fasta_archivos
+from .io_utils import escribir_fasta
 from .logging_config import configurar_logging
 from .args_config import configurar_argumentos
 
@@ -19,7 +19,7 @@ __all__ = [
     'cargar_genoma',
     'lectura_peaks',
     'extraer_secuencias',
-    'fasta_archivos',
+    'escribir_fasta',
     'configurar_logging',
     'configurar_argumentos'
 ]

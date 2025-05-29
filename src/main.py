@@ -31,13 +31,19 @@ Uso:
 
 """
 
+# =============================================================================
+# IMPORTS
+# =============================================================================
 import sys
-from modules.args_config import configurar_argumentos
-from modules.logging_config import configurar_logging
-from modules.genome import cargar_genoma
-from modules.peaks import lectura_peaks, extraer_secuencias
-from modules.io_utils import fasta_archivos
+from args_config import configurar_argumentos
+from logging_config import configurar_logging
+from genome import cargar_genoma
+from peaks import lectura_peaks, extraer_secuencias
+from io_utils import escribir_fasta
 
+# =============================================================================
+# MAIN
+# =============================================================================
 def main():
     # Configurar y parsear argumentos
     parser = configurar_argumentos()
@@ -59,7 +65,7 @@ def main():
         secuencias = extraer_secuencias(coordenadas, genoma)
         
         # 4. Escribir archivos FASTA
-        archivos = fasta_archivos(secuencias, args.outdir, args.line_length)
+        archivos = escribir_fasta(secuencias, args.outdir, args.line_length)
         
         logger.info(f"Proceso completado. Archivos generados: {len(archivos)}")
 
