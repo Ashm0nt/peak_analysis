@@ -39,30 +39,32 @@ def configurar_logging(
     except Exception as e:
         raise RuntimeError(f"No se pudo crear '{output_dir}': {e}")     
     
-    # Formato de timestamp para el nombre de archivo
+    # 2) Nombre de archivo con timestamp
     ts = datetime.now().strftime("%Y%m%d_%H%M%S")
     log_file = os.path.join(output_dir, f"log_{ts}.log")
 
-    logger = logging.getLogger('extract_fasta')
-    logger.setLevel(logging.DEBUG if verbose else logging.INFO)
-    
-    # Eliminar handlers existentes
-    for handler in logger.handlers[:]:
-        logger.removeHandler(handler)
+    # 3) Logger raíz
+    logger = logging.getLogger()
+    logger.setLevel(logging.DEBUG)
 
-    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    
-    # Handler para archivo (todos los niveles)
-    file_handler = logging.FileHandler(log_file)
-    file_handler.setFormatter(formatter)
+    # 4) Eliminar handlers previos
+    for h in list(logger.handlers):
+        logger.removeHandler(h)
+
+    # 5) Formateador común
+    fmt = "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+    formatter = logging.Formatter(fmt)
+
+    # 6) FileHandler (DEBUG+)
+    file_handler = logging.FileHandler(log_file, encoding="utf-8")
     file_handler.setLevel(logging.DEBUG)
-    
-    # Handler para consola (solo INFO y superior)
-    console_handler = logging.StreamHandler()
-    console_handler.setFormatter(formatter)
-    console_handler.setLevel(logging.INFO)
-    
+    file_handler.setFormatter(formatter)
     logger.addHandler(file_handler)
+
+    # 7) StreamHandler para consola (INFO+ o DEBUG+ si verbose)
+    console_handler = logging.StreamHandler()
+    console_handler.setLevel(logging.DEBUG if verbose else logging.INFO)
+    console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
-    
+
     return logger

@@ -20,7 +20,7 @@ import pandas as pd
 # =============================================================================
 
 #Configurar el logger para el módulo
-logger = logging.getLogger('extract_fasta.peaks')
+logger = logging.getLogger(__name__)
 
 def lectura_peaks(peaks_path: str) -> Dict[str, List[Tuple[int, int]]]:
     """

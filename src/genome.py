@@ -17,7 +17,7 @@ from typing import TextIO
 # =============================================================================
 
 # COnfigurar el logger para el módulo
-logger = logging.getLogger('extract_fasta.genome')
+logger = logging.getLogger(__name__)
 
 def cargar_genoma(genoma_path : str) -> str:
     """

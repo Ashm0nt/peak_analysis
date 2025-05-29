@@ -18,7 +18,7 @@ from typing import Dict, List
 # FUNCIONES
 # =============================================================================
 
-logger = logging.getLogger('extract_fasta.io_utils')
+logger = logging.getLogger(__name__)
 
 def escribir_fasta(
         tf_secuencias: Dict[str, List[str]],
