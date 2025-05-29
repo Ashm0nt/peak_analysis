@@ -25,7 +25,7 @@ def configurar_argumentos():
                       help="Archivo TSV con columnas: TF_name, Peak_start, Peak_end")
     
     # Argumentos opcionales
-    parser.add_argument("-o", "--output", default="TF_picos_fasta",
+    parser.add_argument("-o", "--outdir", default="TF_picos_fasta",
                       help="Directorio de salida para archivos FASTA")
     parser.add_argument("--logs", default="logs",
                       help="Directorio para archivos de log")
