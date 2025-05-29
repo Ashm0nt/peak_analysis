@@ -9,14 +9,17 @@ Version:
     4.0
 
 Descripcion:
-    Script para extraer secuencias FASTA de sitios de union de factores de transcripcion en base a coordenadas obtenidas
-    a partir de experimentos ChIP-seq 
+    Script para extraer secuencias FASTA de sitios de union de factores de 
+    transcripcion en base a coordenadas obtenidas a partir de experimentos
+    ChIP-seq 
 
 Funcionalidad:
     1. Lee el archivo FASTA de entrada.
     2. Extrae las secuencias y las guarda en archivos separados.
-    3. Los archivos generados se guardan en un directorio especificado por el usuario.
-    4. Los nombres de los archivos se asignan de manera secuencial como 'fragmento_001.fasta', 'fragmento_002.fasta', etc.
+    3. Los archivos generados se guardan en un directorio especificado por 
+        el usuario.
+    4. Los nombres de los archivos se asignan de manera secuencial como 
+        'fragmento_001.fasta', 'fragmento_002.fasta', etc.
 
 Argumentos:
     -g, --genome: Ruta al archivo FASTA de entrada
@@ -26,7 +29,8 @@ Argumentos:
     -l, --line_lenght: Formato para las secuencias de fasta (opcional)
 
 Uso:
-    python3 extract_fasta.py -g ../data/E_coli_K12_MG1655_U00096.3.txt -p ../data/union_peaks_file.tsv -o ../results/ --logs ../doc -v 
+    python3 extract_fasta.py -g ../data/E_coli_K12_MG1655_U00096.3.txt 
+        -p ../data/union_peaks_file.tsv -o ../results/ --logs ../doc -v 
 
 
 """
