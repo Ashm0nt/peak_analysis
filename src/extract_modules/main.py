@@ -21,7 +21,7 @@ Funcionalidad:
 Argumentos:
     -g, --genome: Ruta al archivo FASTA de entrada
     -p, --peaks: Ruta al archivo que contiene los picos de TFs
-    -o, --output: Directorio de salida de los archivos generados
+    -o, --outdir: Directorio de salida de los archivos generados
     --logs: Directorio de salida del log
     -l, --line_lenght: Formato para las secuencias de fasta (opcional)
 
@@ -59,7 +59,7 @@ def main():
         secuencias = extraer_secuencias(coordenadas, genoma)
         
         # 4. Escribir archivos FASTA
-        archivos = fasta_archivos(secuencias, args.output, args.line_length)
+        archivos = fasta_archivos(secuencias, args.outdir, args.line_length)
         
         logger.info(f"Proceso completado. Archivos generados: {len(archivos)}")
 
