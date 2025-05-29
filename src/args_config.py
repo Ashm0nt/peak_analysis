@@ -2,7 +2,7 @@
 Módulo para configuración de argumentos de línea de comandos
 
 Autor: Ashley Yael Montiel Vargas
-Fecha: 01-Mayo-2025
+Fecha: 29-Mayo-2025
 Versión: 4.0
 """
 

@@ -1,10 +1,4 @@
-"""
-Configuración centralizada del sistema de logging
 
-Autor: Ashley Yael Montiel Vargas
-Fecha: 01-Mayo-2025
-Versión: 
-"""
 """
 Configuración centralizada del sistema de logging
 
