@@ -9,15 +9,26 @@ Versión:
 Configuración centralizada del sistema de logging
 
 Autor: Ashley Yael Montiel Vargas
-Fecha: 01-Mayo-2025
-Versión: 4.0
+Fecha: 29-Mayo-2025
+Versión: 4.2
 """
+
+# =============================================================================
+# IMPORTS
+# =============================================================================
 
 import os
 from datetime import datetime
 import logging
 
-def configurar_logging(output_dir="logs", verbose=False):
+# =============================================================================
+# FUNCIONES
+# =============================================================================
+
+def configurar_logging(
+        output_dir: str = "logs", verbose: bool = False
+) -> logging.Logger:
+    
     """Configura el sistema de logging avanzado
     
     Args:
@@ -27,9 +38,17 @@ def configurar_logging(output_dir="logs", verbose=False):
     Returns:
         logging.Logger: Logger configurado
     """
-    os.makedirs(output_dir, exist_ok=True)
-    log_file = os.path.join(output_dir, f"log_{datetime.now().strftime('%Y%m%d_%H%M%S')}.log")
+
+    #Crear directorio de logs si no hay uno
+    try: 
+        os.makedirs(output_dir, exist_ok=True)
+    except Exception as e:
+        raise RuntimeError(f"No se pudo crear '{output_dir}': {e}")     
     
+    # Formato de timestamp para el nombre de archivo
+    ts = datetime.now().strftime("%Y%m%d_%H%M%S")
+    log_file = os.path.join(output_dir, f"log_{ts}.log")
+
     logger = logging.getLogger('extract_fasta')
     logger.setLevel(logging.DEBUG if verbose else logging.INFO)
     
