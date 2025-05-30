@@ -1,0 +1,286 @@
+2025-05-30 00:21:48,325 - root - INFO - Iniciando procesamiento
+2025-05-30 00:21:48,339 - genome - INFO - Genoma cargado; longitud: 4641652 bp
+2025-05-30 00:21:48,451 - peaks - INFO - Resumen de procesamiento:
+  Líneas totales: 7824
+  Picos válidos: 139
+  Picos inválidos: 0
+2025-05-30 00:21:48,454 - peaks - INFO - Extracción completada: totales=7823, válidos=7823, inválidos=0
+2025-05-30 00:21:48,454 - root - DEBUG - aaeR: 69 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - agaR: 8 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - allR: 101 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - allS: 37 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - argP: 113 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - argR: 30 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - arsR: 65 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - ascG: 2 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - asnC: 7 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - basR: 8 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - betI: 18 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - cadC: 27 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - cbl: 18 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - cpxR: 21 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - csgD: 397 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - csiR: 87 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - cusR: 4 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - cynR: 105 secuencias extraídas
+2025-05-30 00:21:48,454 - root - DEBUG - cysB: 171 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - deoR: 37 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - dgoR: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - dgsA: 5 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - dicA: 90 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - dicC: 279 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - dinJ: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - ebgR: 2 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - envY: 3 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - exuR: 40 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - fabR: 3 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - fimZ: 50 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - fucR: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - gadW: 7 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - gadX: 178 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - galR: 12 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - galS: 3 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - gcvA: 16 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - gcvR: 3 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - glnG: 165 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - glpR: 2 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - hcaR: 8 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - hdfR: 3 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - hipA: 20 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - hipB: 32 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - iclR: 4 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - iscR: 109 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - kdgR: 96 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - lacI: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - lexA: 19 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - lldR: 22 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - marA: 50 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - matA: 6 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - mazE: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - melR: 57 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - metR: 10 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - mhpR: 2 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - mlrA: 2 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - mngR: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - modE: 8 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - mraZ: 98 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - nac: 504 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - nagC: 12 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - nanR: 388 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - nhaR: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - nrdR: 3 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - nsrR: 6 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - ompR: 17 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - paaX: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - pdhR: 347 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - pepA: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - pspF: 2 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - purR: 23 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - racR: 2 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - relE: 8 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - rstA: 2 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - rutR: 154 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - sfsB: 258 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - sgcR: 1 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - sgrR: 3 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - srlR: 2 secuencias extraídas
+2025-05-30 00:21:48,455 - root - DEBUG - stpA: 201 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - sxy: 164 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - torR: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - treR: 48 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - trpR: 6 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ttk: 32 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - tyrR: 6 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - uidR: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ulaR: 405 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - uvrY: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - uxuR: 61 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yafC: 37 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yafN: 225 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yagI: 153 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ybaQ: 43 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ybcM: 16 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ybhD: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ybiH: 5 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ycgE: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yciT: 87 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ycjW: 120 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ycjZ: 14 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ydaS: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ydcN: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ydcR: 20 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yddM: 20 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ydfH: 12 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ydjF: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yeaM: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yeaT: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yedW: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yegW: 167 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yeiE: 155 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yeiI: 34 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yfeC: 4 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yfeT: 28 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yfhH: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yfiE: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ygbI: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ygeH: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ygiT: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yhaJ: 4 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yheO: 5 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yhfR: 92 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yhfZ: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yhjC: 3 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yidZ: 233 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yihW: 3 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yijO: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yjgJ: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yjiR: 142 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yjjQ: 367 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ykgD: 2 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yncC: 189 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yoeB: 12 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ypdC: 160 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - yqjI: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - ytfH: 43 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - zraR: 1 secuencias extraídas
+2025-05-30 00:21:48,456 - root - DEBUG - zur: 6 secuencias extraídas
+2025-05-30 00:21:48,457 - io_utils - INFO - Archivo generado: '../results/aaeR.fa' ('69 secuencias)
+2025-05-30 00:21:48,457 - io_utils - INFO - Archivo generado: '../results/agaR.fa' ('8 secuencias)
+2025-05-30 00:21:48,457 - io_utils - INFO - Archivo generado: '../results/allR.fa' ('101 secuencias)
+2025-05-30 00:21:48,458 - io_utils - INFO - Archivo generado: '../results/allS.fa' ('37 secuencias)
+2025-05-30 00:21:48,458 - io_utils - INFO - Archivo generado: '../results/argP.fa' ('113 secuencias)
+2025-05-30 00:21:48,458 - io_utils - INFO - Archivo generado: '../results/argR.fa' ('30 secuencias)
+2025-05-30 00:21:48,458 - io_utils - INFO - Archivo generado: '../results/arsR.fa' ('65 secuencias)
+2025-05-30 00:21:48,459 - io_utils - INFO - Archivo generado: '../results/ascG.fa' ('2 secuencias)
+2025-05-30 00:21:48,459 - io_utils - INFO - Archivo generado: '../results/asnC.fa' ('7 secuencias)
+2025-05-30 00:21:48,459 - io_utils - INFO - Archivo generado: '../results/basR.fa' ('8 secuencias)
+2025-05-30 00:21:48,459 - io_utils - INFO - Archivo generado: '../results/betI.fa' ('18 secuencias)
+2025-05-30 00:21:48,460 - io_utils - INFO - Archivo generado: '../results/cadC.fa' ('27 secuencias)
+2025-05-30 00:21:48,460 - io_utils - INFO - Archivo generado: '../results/cbl.fa' ('18 secuencias)
+2025-05-30 00:21:48,460 - io_utils - INFO - Archivo generado: '../results/cpxR.fa' ('21 secuencias)
+2025-05-30 00:21:48,460 - io_utils - INFO - Archivo generado: '../results/csgD.fa' ('397 secuencias)
+2025-05-30 00:21:48,461 - io_utils - INFO - Archivo generado: '../results/csiR.fa' ('87 secuencias)
+2025-05-30 00:21:48,461 - io_utils - INFO - Archivo generado: '../results/cusR.fa' ('4 secuencias)
+2025-05-30 00:21:48,461 - io_utils - INFO - Archivo generado: '../results/cynR.fa' ('105 secuencias)
+2025-05-30 00:21:48,462 - io_utils - INFO - Archivo generado: '../results/cysB.fa' ('171 secuencias)
+2025-05-30 00:21:48,462 - io_utils - INFO - Archivo generado: '../results/deoR.fa' ('37 secuencias)
+2025-05-30 00:21:48,462 - io_utils - INFO - Archivo generado: '../results/dgoR.fa' ('1 secuencias)
+2025-05-30 00:21:48,462 - io_utils - INFO - Archivo generado: '../results/dgsA.fa' ('5 secuencias)
+2025-05-30 00:21:48,463 - io_utils - INFO - Archivo generado: '../results/dicA.fa' ('90 secuencias)
+2025-05-30 00:21:48,463 - io_utils - INFO - Archivo generado: '../results/dicC.fa' ('279 secuencias)
+2025-05-30 00:21:48,463 - io_utils - INFO - Archivo generado: '../results/dinJ.fa' ('1 secuencias)
+2025-05-30 00:21:48,463 - io_utils - INFO - Archivo generado: '../results/ebgR.fa' ('2 secuencias)
+2025-05-30 00:21:48,463 - io_utils - INFO - Archivo generado: '../results/envY.fa' ('3 secuencias)
+2025-05-30 00:21:48,464 - io_utils - INFO - Archivo generado: '../results/exuR.fa' ('40 secuencias)
+2025-05-30 00:21:48,464 - io_utils - INFO - Archivo generado: '../results/fabR.fa' ('3 secuencias)
+2025-05-30 00:21:48,464 - io_utils - INFO - Archivo generado: '../results/fimZ.fa' ('50 secuencias)
+2025-05-30 00:21:48,464 - io_utils - INFO - Archivo generado: '../results/fucR.fa' ('1 secuencias)
+2025-05-30 00:21:48,464 - io_utils - INFO - Archivo generado: '../results/gadW.fa' ('7 secuencias)
+2025-05-30 00:21:48,465 - io_utils - INFO - Archivo generado: '../results/gadX.fa' ('178 secuencias)
+2025-05-30 00:21:48,465 - io_utils - INFO - Archivo generado: '../results/galR.fa' ('12 secuencias)
+2025-05-30 00:21:48,465 - io_utils - INFO - Archivo generado: '../results/galS.fa' ('3 secuencias)
+2025-05-30 00:21:48,465 - io_utils - INFO - Archivo generado: '../results/gcvA.fa' ('16 secuencias)
+2025-05-30 00:21:48,465 - io_utils - INFO - Archivo generado: '../results/gcvR.fa' ('3 secuencias)
+2025-05-30 00:21:48,466 - io_utils - INFO - Archivo generado: '../results/glnG.fa' ('165 secuencias)
+2025-05-30 00:21:48,466 - io_utils - INFO - Archivo generado: '../results/glpR.fa' ('2 secuencias)
+2025-05-30 00:21:48,466 - io_utils - INFO - Archivo generado: '../results/hcaR.fa' ('8 secuencias)
+2025-05-30 00:21:48,466 - io_utils - INFO - Archivo generado: '../results/hdfR.fa' ('3 secuencias)
+2025-05-30 00:21:48,466 - io_utils - INFO - Archivo generado: '../results/hipA.fa' ('20 secuencias)
+2025-05-30 00:21:48,467 - io_utils - INFO - Archivo generado: '../results/hipB.fa' ('32 secuencias)
+2025-05-30 00:21:48,467 - io_utils - INFO - Archivo generado: '../results/iclR.fa' ('4 secuencias)
+2025-05-30 00:21:48,467 - io_utils - INFO - Archivo generado: '../results/iscR.fa' ('109 secuencias)
+2025-05-30 00:21:48,467 - io_utils - INFO - Archivo generado: '../results/kdgR.fa' ('96 secuencias)
+2025-05-30 00:21:48,468 - io_utils - INFO - Archivo generado: '../results/lacI.fa' ('1 secuencias)
+2025-05-30 00:21:48,468 - io_utils - INFO - Archivo generado: '../results/lexA.fa' ('19 secuencias)
+2025-05-30 00:21:48,468 - io_utils - INFO - Archivo generado: '../results/lldR.fa' ('22 secuencias)
+2025-05-30 00:21:48,468 - io_utils - INFO - Archivo generado: '../results/marA.fa' ('50 secuencias)
+2025-05-30 00:21:48,468 - io_utils - INFO - Archivo generado: '../results/matA.fa' ('6 secuencias)
+2025-05-30 00:21:48,469 - io_utils - INFO - Archivo generado: '../results/mazE.fa' ('1 secuencias)
+2025-05-30 00:21:48,469 - io_utils - INFO - Archivo generado: '../results/melR.fa' ('57 secuencias)
+2025-05-30 00:21:48,469 - io_utils - INFO - Archivo generado: '../results/metR.fa' ('10 secuencias)
+2025-05-30 00:21:48,469 - io_utils - INFO - Archivo generado: '../results/mhpR.fa' ('2 secuencias)
+2025-05-30 00:21:48,469 - io_utils - INFO - Archivo generado: '../results/mlrA.fa' ('2 secuencias)
+2025-05-30 00:21:48,469 - io_utils - INFO - Archivo generado: '../results/mngR.fa' ('1 secuencias)
+2025-05-30 00:21:48,469 - io_utils - INFO - Archivo generado: '../results/modE.fa' ('8 secuencias)
+2025-05-30 00:21:48,470 - io_utils - INFO - Archivo generado: '../results/mraZ.fa' ('98 secuencias)
+2025-05-30 00:21:48,470 - io_utils - INFO - Archivo generado: '../results/nac.fa' ('504 secuencias)
+2025-05-30 00:21:48,470 - io_utils - INFO - Archivo generado: '../results/nagC.fa' ('12 secuencias)
+2025-05-30 00:21:48,471 - io_utils - INFO - Archivo generado: '../results/nanR.fa' ('388 secuencias)
+2025-05-30 00:21:48,471 - io_utils - INFO - Archivo generado: '../results/nhaR.fa' ('1 secuencias)
+2025-05-30 00:21:48,471 - io_utils - INFO - Archivo generado: '../results/nrdR.fa' ('3 secuencias)
+2025-05-30 00:21:48,471 - io_utils - INFO - Archivo generado: '../results/nsrR.fa' ('6 secuencias)
+2025-05-30 00:21:48,472 - io_utils - INFO - Archivo generado: '../results/ompR.fa' ('17 secuencias)
+2025-05-30 00:21:48,472 - io_utils - INFO - Archivo generado: '../results/paaX.fa' ('1 secuencias)
+2025-05-30 00:21:48,472 - io_utils - INFO - Archivo generado: '../results/pdhR.fa' ('347 secuencias)
+2025-05-30 00:21:48,473 - io_utils - INFO - Archivo generado: '../results/pepA.fa' ('1 secuencias)
+2025-05-30 00:21:48,473 - io_utils - INFO - Archivo generado: '../results/pspF.fa' ('2 secuencias)
+2025-05-30 00:21:48,473 - io_utils - INFO - Archivo generado: '../results/purR.fa' ('23 secuencias)
+2025-05-30 00:21:48,473 - io_utils - INFO - Archivo generado: '../results/racR.fa' ('2 secuencias)
+2025-05-30 00:21:48,473 - io_utils - INFO - Archivo generado: '../results/relE.fa' ('8 secuencias)
+2025-05-30 00:21:48,474 - io_utils - INFO - Archivo generado: '../results/rstA.fa' ('2 secuencias)
+2025-05-30 00:21:48,474 - io_utils - INFO - Archivo generado: '../results/rutR.fa' ('154 secuencias)
+2025-05-30 00:21:48,474 - io_utils - INFO - Archivo generado: '../results/sfsB.fa' ('258 secuencias)
+2025-05-30 00:21:48,474 - io_utils - INFO - Archivo generado: '../results/sgcR.fa' ('1 secuencias)
+2025-05-30 00:21:48,474 - io_utils - INFO - Archivo generado: '../results/sgrR.fa' ('3 secuencias)
+2025-05-30 00:21:48,475 - io_utils - INFO - Archivo generado: '../results/srlR.fa' ('2 secuencias)
+2025-05-30 00:21:48,475 - io_utils - INFO - Archivo generado: '../results/stpA.fa' ('201 secuencias)
+2025-05-30 00:21:48,476 - io_utils - INFO - Archivo generado: '../results/sxy.fa' ('164 secuencias)
+2025-05-30 00:21:48,476 - io_utils - INFO - Archivo generado: '../results/torR.fa' ('1 secuencias)
+2025-05-30 00:21:48,476 - io_utils - INFO - Archivo generado: '../results/treR.fa' ('48 secuencias)
+2025-05-30 00:21:48,476 - io_utils - INFO - Archivo generado: '../results/trpR.fa' ('6 secuencias)
+2025-05-30 00:21:48,477 - io_utils - INFO - Archivo generado: '../results/ttk.fa' ('32 secuencias)
+2025-05-30 00:21:48,477 - io_utils - INFO - Archivo generado: '../results/tyrR.fa' ('6 secuencias)
+2025-05-30 00:21:48,477 - io_utils - INFO - Archivo generado: '../results/uidR.fa' ('1 secuencias)
+2025-05-30 00:21:48,478 - io_utils - INFO - Archivo generado: '../results/ulaR.fa' ('405 secuencias)
+2025-05-30 00:21:48,478 - io_utils - INFO - Archivo generado: '../results/uvrY.fa' ('1 secuencias)
+2025-05-30 00:21:48,478 - io_utils - INFO - Archivo generado: '../results/uxuR.fa' ('61 secuencias)
+2025-05-30 00:21:48,478 - io_utils - INFO - Archivo generado: '../results/yafC.fa' ('37 secuencias)
+2025-05-30 00:21:48,479 - io_utils - INFO - Archivo generado: '../results/yafN.fa' ('225 secuencias)
+2025-05-30 00:21:48,479 - io_utils - INFO - Archivo generado: '../results/yagI.fa' ('153 secuencias)
+2025-05-30 00:21:48,479 - io_utils - INFO - Archivo generado: '../results/ybaQ.fa' ('43 secuencias)
+2025-05-30 00:21:48,480 - io_utils - INFO - Archivo generado: '../results/ybcM.fa' ('16 secuencias)
+2025-05-30 00:21:48,480 - io_utils - INFO - Archivo generado: '../results/ybhD.fa' ('2 secuencias)
+2025-05-30 00:21:48,480 - io_utils - INFO - Archivo generado: '../results/ybiH.fa' ('5 secuencias)
+2025-05-30 00:21:48,480 - io_utils - INFO - Archivo generado: '../results/ycgE.fa' ('2 secuencias)
+2025-05-30 00:21:48,480 - io_utils - INFO - Archivo generado: '../results/yciT.fa' ('87 secuencias)
+2025-05-30 00:21:48,480 - io_utils - INFO - Archivo generado: '../results/ycjW.fa' ('120 secuencias)
+2025-05-30 00:21:48,481 - io_utils - INFO - Archivo generado: '../results/ycjZ.fa' ('14 secuencias)
+2025-05-30 00:21:48,481 - io_utils - INFO - Archivo generado: '../results/ydaS.fa' ('1 secuencias)
+2025-05-30 00:21:48,481 - io_utils - INFO - Archivo generado: '../results/ydcN.fa' ('1 secuencias)
+2025-05-30 00:21:48,481 - io_utils - INFO - Archivo generado: '../results/ydcR.fa' ('20 secuencias)
+2025-05-30 00:21:48,482 - io_utils - INFO - Archivo generado: '../results/yddM.fa' ('20 secuencias)
+2025-05-30 00:21:48,482 - io_utils - INFO - Archivo generado: '../results/ydfH.fa' ('12 secuencias)
+2025-05-30 00:21:48,482 - io_utils - INFO - Archivo generado: '../results/ydjF.fa' ('2 secuencias)
+2025-05-30 00:21:48,482 - io_utils - INFO - Archivo generado: '../results/yeaM.fa' ('1 secuencias)
+2025-05-30 00:21:48,482 - io_utils - INFO - Archivo generado: '../results/yeaT.fa' ('2 secuencias)
+2025-05-30 00:21:48,483 - io_utils - INFO - Archivo generado: '../results/yedW.fa' ('2 secuencias)
+2025-05-30 00:21:48,483 - io_utils - INFO - Archivo generado: '../results/yegW.fa' ('167 secuencias)
+2025-05-30 00:21:48,484 - io_utils - INFO - Archivo generado: '../results/yeiE.fa' ('155 secuencias)
+2025-05-30 00:21:48,484 - io_utils - INFO - Archivo generado: '../results/yeiI.fa' ('34 secuencias)
+2025-05-30 00:21:48,484 - io_utils - INFO - Archivo generado: '../results/yfeC.fa' ('4 secuencias)
+2025-05-30 00:21:48,484 - io_utils - INFO - Archivo generado: '../results/yfeT.fa' ('28 secuencias)
+2025-05-30 00:21:48,484 - io_utils - INFO - Archivo generado: '../results/yfhH.fa' ('2 secuencias)
+2025-05-30 00:21:48,484 - io_utils - INFO - Archivo generado: '../results/yfiE.fa' ('1 secuencias)
+2025-05-30 00:21:48,484 - io_utils - INFO - Archivo generado: '../results/ygbI.fa' ('2 secuencias)
+2025-05-30 00:21:48,484 - io_utils - INFO - Archivo generado: '../results/ygeH.fa' ('1 secuencias)
+2025-05-30 00:21:48,485 - io_utils - INFO - Archivo generado: '../results/ygiT.fa' ('2 secuencias)
+2025-05-30 00:21:48,485 - io_utils - INFO - Archivo generado: '../results/yhaJ.fa' ('4 secuencias)
+2025-05-30 00:21:48,485 - io_utils - INFO - Archivo generado: '../results/yheO.fa' ('5 secuencias)
+2025-05-30 00:21:48,485 - io_utils - INFO - Archivo generado: '../results/yhfR.fa' ('92 secuencias)
+2025-05-30 00:21:48,485 - io_utils - INFO - Archivo generado: '../results/yhfZ.fa' ('1 secuencias)
+2025-05-30 00:21:48,485 - io_utils - INFO - Archivo generado: '../results/yhjC.fa' ('3 secuencias)
+2025-05-30 00:21:48,486 - io_utils - INFO - Archivo generado: '../results/yidZ.fa' ('233 secuencias)
+2025-05-30 00:21:48,486 - io_utils - INFO - Archivo generado: '../results/yihW.fa' ('3 secuencias)
+2025-05-30 00:21:48,486 - io_utils - INFO - Archivo generado: '../results/yijO.fa' ('1 secuencias)
+2025-05-30 00:21:48,486 - io_utils - INFO - Archivo generado: '../results/yjgJ.fa' ('1 secuencias)
+2025-05-30 00:21:48,486 - io_utils - INFO - Archivo generado: '../results/yjiR.fa' ('142 secuencias)
+2025-05-30 00:21:48,487 - io_utils - INFO - Archivo generado: '../results/yjjQ.fa' ('367 secuencias)
+2025-05-30 00:21:48,487 - io_utils - INFO - Archivo generado: '../results/ykgD.fa' ('2 secuencias)
+2025-05-30 00:21:48,487 - io_utils - INFO - Archivo generado: '../results/yncC.fa' ('189 secuencias)
+2025-05-30 00:21:48,488 - io_utils - INFO - Archivo generado: '../results/yoeB.fa' ('12 secuencias)
+2025-05-30 00:21:48,488 - io_utils - INFO - Archivo generado: '../results/ypdC.fa' ('160 secuencias)
+2025-05-30 00:21:48,488 - io_utils - INFO - Archivo generado: '../results/yqjI.fa' ('1 secuencias)
+2025-05-30 00:21:48,488 - io_utils - INFO - Archivo generado: '../results/ytfH.fa' ('43 secuencias)
+2025-05-30 00:21:48,488 - io_utils - INFO - Archivo generado: '../results/zraR.fa' ('1 secuencias)
+2025-05-30 00:21:48,489 - io_utils - INFO - Archivo generado: '../results/zur.fa' ('6 secuencias)
+2025-05-30 00:21:48,489 - root - INFO - Proceso completado. Archivos generados: 139
