@@ -1,9 +1,35 @@
 """
-Módulo para procesamiento de archivos de picos ChIP-seq
+Módulo de procesamiento de archivos de picos de ChIP-Seq para la extracción
+y validación de regiones genómicas asociadas a factores de transcripción (TF).
 
-Autor: Ashley Yael Montiel Vargas
-Fecha: 29-Mayo-2025
-Versión: 5.0
+Contiene dos funciones principales:
+
+  1. lectura_peaks(peaks_path: str) -> Dict[str, List[Tuple[int, int]]]
+     -----------------------------------------------------------------
+     - Lee un TSV de picos asegurando que existan las columnas mínimas:
+       "TF_name", "Peak_start", "Peak_end".
+     - Filtra filas vacías, formateo incorrecto y coordenadas inválidas.
+     - Agrupa los pares (start, end) por cada TF y devuelve un diccionario.
+     - Registra estadísticas y advertencias/errores en el logger.
+
+  2. extraer_secuencias(
+       tf_coordenadas: Dict[str, List[Tuple[int, int]]],
+       secuenciagenoma: str
+     ) -> Dict[str, List[str]]
+     --------------------------------------------------------------
+     - Recorta fragmentos de ADN de la cadena completa del genoma usando
+       las coordenadas (0-based) de cada TF.
+     - Omite rangos fuera de los límites y registra advertencias.
+     - Devuelve un diccionario TF → lista de secuencias extraídas.
+
+Autor:
+    Ashley Yael Montiel Vargas <yaelmont@lcg.unam.mx>
+
+Fecha:
+    29 de mayo de 2025
+
+Versión:
+    5.1
 """
 # =============================================================================
 # IMPORTS
