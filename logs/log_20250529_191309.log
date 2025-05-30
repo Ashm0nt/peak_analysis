@@ -1,0 +1,13 @@
+2025-05-29 19:13:09,728 - root - INFO - Iniciando procesamiento
+2025-05-29 19:13:09,728 - genome - INFO - Genoma cargado; longitud: 64 bp
+2025-05-29 19:13:09,731 - peaks - WARNING - Fila 2: campos vacíos, omitiendo
+2025-05-29 19:13:09,731 - peaks - INFO - Resumen de procesamiento:
+  Líneas totales: 5
+  Picos válidos: 3
+  Picos inválidos: 1
+2025-05-29 19:13:09,731 - peaks - WARNING - TF_BAD: coordenadas inválidas (100, 200)
+2025-05-29 19:13:09,731 - peaks - INFO - Extracción completada: totales=3, válidos=2, inválidos=1
+2025-05-29 19:13:09,731 - io_utils - INFO - Archivo generado: '/private/var/folders/lk/h6dz5v4910sg3w4rk_4t2spm0000gn/T/pytest-of-ashleyyaelmontielvargas/pytest-4/test_line_length_config_10_10_0/output/TF1.fa' ('1 secuencias)
+2025-05-29 19:13:09,731 - io_utils - INFO - Archivo generado: '/private/var/folders/lk/h6dz5v4910sg3w4rk_4t2spm0000gn/T/pytest-of-ashleyyaelmontielvargas/pytest-4/test_line_length_config_10_10_0/output/TF2.fa' ('1 secuencias)
+2025-05-29 19:13:09,731 - io_utils - DEBUG - No hay secuencias para 'TF_BAD'; se omite.
+2025-05-29 19:13:09,731 - root - INFO - Proceso completado. Archivos generados: 2

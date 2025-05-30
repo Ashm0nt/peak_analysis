@@ -1,0 +1,9 @@
+2025-05-29 19:02:24,713 - root - INFO - Iniciando procesamiento
+2025-05-29 19:02:24,714 - genome - ERROR - Formato FASTA inválido: falta línea de encabezado '>'
+2025-05-29 19:02:24,714 - root - ERROR - Error durante la ejecución
+Traceback (most recent call last):
+  File "/Users/ashleyyaelmontielvargas/Desktop/clases/peak_analysis/src/main.py", line 63, in main
+    genoma = cargar_genoma(args.genome)
+  File "/Users/ashleyyaelmontielvargas/Desktop/clases/peak_analysis/src/genome.py", line 55, in cargar_genoma
+    raise ValueError(msg)
+ValueError: Formato FASTA inválido: falta línea de encabezado '>'
