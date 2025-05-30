@@ -1,9 +1,23 @@
 """
-Módulo para utilidades de entrada/salida
+Funciones auxiliares para la escritura de archivos FASTA a partir de
+secuencias agrupadas por factor de transcripción (TF).
 
-Autor: Ashley Yael Montiel Vargas
-Fecha: 29-Mayo-2025
-Versión: 5.0
+Este módulo ofrece:
+
+  - escribir_fasta(tf_secuencias, output_dir, chars_por_linea)
+    --------------------------------------------------------
+    Dado un diccionario TF → lista de secuencias de ADN, crea un
+    archivo FASTA por cada TF, con headers informativos
+    (`>TF_pico_<n>_len=<longitud>`) y líneas de longitud fija.
+
+Autor:
+    Ashley Yael Montiel Vargas <yaelmont@lcg.unam.mx>
+
+Fecha:
+    29 de mayo de 2025
+
+Versión:
+    5.1
 """
 
 # =============================================================================
@@ -51,7 +65,8 @@ def escribir_fasta(
         msg = f"No se pudo crear el directorio '{output_dir}': {e}"
         logger.error(msg)
         raise
-
+    
+    
     archivos_generados: List[str] = []
 
     #Comprobar que almenos haya secuencias 
