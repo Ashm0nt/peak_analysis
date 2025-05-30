@@ -1,6 +1,17 @@
 """
 Pruebas unitarias para el módulo logging_config.py
 
+Este conjunto de tests verifica:
+  - Creación del directorio y archivo de logs con timestamp fijo.
+  - Manejo de errores al crear el directorio.
+  - Configuración correcta de FileHandler y StreamHandler.
+  - Comportamiento del modo verbose.
+  - Formato del formatter.
+  - Eliminación de handlers previos.
+  - Codificación UTF-8 en el FileHandler.
+  - Emisión de mensajes DEBUG/INFO/WARNING tanto en consola
+    como en el archivo de log.
+
 Autor: Ashley Yael Montiel Vargas
 Fecha: 2025-05-29
 """
