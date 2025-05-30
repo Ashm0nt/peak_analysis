@@ -168,10 +168,12 @@ def lectura_peaks(peaks_path: str) -> Dict[str, List[Tuple[int, int]]]:
                 "Fila %d: start ≥ end (%d ≥ %d)", fila + 2, start, end)
             continue
         
-        if tf not in tf_coordenadas:
-            tf_coordenadas[tf] = []
+        if tf in tf_coordenadas:
             tf_coordenadas[tf].append((start, end))
+        else:
+            tf_coordenadas[tf] = [(start, end)]
             estadisticas['picos_validos'] += 1
+
 
     # Resumen de estadísticas
     logger.info(
