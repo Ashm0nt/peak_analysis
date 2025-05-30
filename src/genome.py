@@ -59,13 +59,9 @@ def cargar_genoma(genoma_path : str) -> str:
         vacía.
     """
 
-    #Verificar que exista el archivo 
-    if not os.path.isfile(genoma_path):
-        msg = f"Archivo de genoma no encontrado: {genoma_path}"
-        logger.error(msg)
-        raise FileNotFoundError(msg)
-    
+    # Intentamos abrir primero para capturar PermissionError
     try:
+        #Abrir el archivo
         with open(genoma_path, mode="r", encoding="utf-8") as archivo:
             #Leer y validar encabezado FASTA
             encabezado = archivo.readline().strip()
@@ -74,23 +70,32 @@ def cargar_genoma(genoma_path : str) -> str:
                 logger.error(msg)
                 raise ValueError(msg)
 
-            #Concantenar las líneas 
+            #Concatenar las lineas
             secuencia = "".join(
                 linea.strip().upper()
                 for linea in archivo
                 if not linea.startswith(">")
             )
-        
-        # Si el archivo está vacio
-        if not secuencia:
-            msg = "El archivo FASTA está vacío o no contiene secuencia válida"
-            logger.error(msg)
-            raise ValueError(msg)
-    
-        logger.info("Genoma cargado; longitud: %d bp", len(secuencia))
-        return secuencia
-    
+
+    except PermissionError as e:
+        msg = "Permiso denegado"
+        logger.error(f"{msg}: {e}")
+        raise ValueError(msg)
+    except FileNotFoundError:
+        msg = f"Archivo de genoma no encontrado: {genoma_path}"
+        logger.error(msg)
+        raise FileNotFoundError(msg)  
     except UnicodeDecodeError as e:
         msg = f"Error de codificación al leer '{genoma_path}': {e}"
         logger.error(msg)
         raise ValueError(msg)
+        
+    # Si el archivo está vacio
+    if not secuencia:
+        msg = "Archivo FASTA vacío"
+        logger.error(msg)
+        raise ValueError(msg)
+    
+    logger.info("Genoma cargado; longitud: %d bp", len(secuencia))
+    return secuencia
+    

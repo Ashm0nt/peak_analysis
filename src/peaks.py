@@ -69,7 +69,18 @@ def lectura_peaks(peaks_path: str) -> Dict[str, List[Tuple[int, int]]]:
         FileNotFoundError: Si `peaks_path` no existe.
         ValueError: Si faltan columnas requeridas o los datos no son válidos.
     """
-     
+    
+    #Verificar existencia y no vacío
+    if not os.path.isfile(peaks_path):
+        msg = f"Archivo de picos no encontrado: {peaks_path}"
+        logger.error(msg)
+        raise FileNotFoundError(msg)
+    if os.path.getsize(peaks_path) == 0:
+        msg = "Archivo vacío"
+        logger.error(msg)
+        raise ValueError(msg)
+    
+
     #Inicializar estructuras 
     tf_coordenadas: Dict[str, List[Tuple[int, int]]] = {}
     estadisticas = {
@@ -80,12 +91,6 @@ def lectura_peaks(peaks_path: str) -> Dict[str, List[Tuple[int, int]]]:
         'errores': {'coordenadas': 0, 'estructura': 0, 'formato': 0},
         'advertencias': {'lineas_vacias': 0, 'campos_vacios': 0}
     }
-
-    # Verificar que el archivo exista 
-    if not os.path.isfile(peaks_path):
-        msg = f"Archivo de picos no encontrado: {peaks_path}"
-        logger.error(msg)
-        raise FileNotFoundError(msg)
 
     try:
         # Leer líneas crudas para contar vacías
@@ -98,75 +103,75 @@ def lectura_peaks(peaks_path: str) -> Dict[str, List[Tuple[int, int]]]:
                     estadisticas['advertencias']['lineas_vacias'] += 1
                     logger.debug(f"Linea {num_linea}: Vacía - omitiendo")
                     continue
-
+    except UnicodeDecodeError as e:
+        msg = f"Error de codificación al leer '{peaks_path}': {e}"
+        logger.error(msg)
+        raise ValueError(msg)
 
         # Leer con pandas
-        try:
-            df = pd.read_csv(peaks_path, sep="\t", 
+    try:
+        df = pd.read_csv(peaks_path, sep="\t", 
                          dtype={"TF_name": str}, comment=None)
-        except Exception as e:
+    except Exception as e:
             msg = f"No se pudo leer '{peaks_path}': {e}"
             logger.error(msg)
             raise ValueError(msg)
 
-        # Validar columnas
-        columnas_requeridas = ["TF_name", "Peak_start", "Peak_end"]
-        columnas_faltantes = [c for c in columnas_requeridas 
+    # Validar columnas
+    columnas_requeridas = ["TF_name", "Peak_start", "Peak_end"]
+    columnas_faltantes = [c for c in columnas_requeridas 
                           if c not in df.columns]
-        if columnas_faltantes:
-            estadisticas['errores']['formato'] += 1
-            msg = f"Columnas faltantes en {peaks_path}: {columnas_faltantes}"
-            logger.error(msg)
-            raise ValueError(msg)
+    if columnas_faltantes:
+        estadisticas['errores']['formato'] += 1
+        msg = f"Columnas faltantes en {peaks_path}: {columnas_faltantes}"
+        logger.error(msg)
+        raise ValueError(msg)
 
 
-        # Procesar filas
-        for fila, valores in df.iterrows():
-            estadisticas['picos_totales'] += 1
+    # Procesar filas
+    for fila, valores in df.iterrows():
+        estadisticas['picos_totales'] += 1
         
-            tf = (valores["TF_name"] or "").strip()
-            start = (valores["Peak_start"] or "")
-            end = (valores["Peak_end"] or "")
+        tf = str(valores["TF_name"] or "").strip()
+        start = (valores["Peak_start"] or "")
+        end = (valores["Peak_end"] or "")
             
-            if not (tf and start and end):
-                estadisticas['advertencias']['campos_vacios'] += 1
-                estadisticas['picos_invalidos'] += 1
-                logger.warning("Fila %d: campos vacíos, omitiendo", fila + 2)
-                continue
+        if not (tf and start and end):
+            estadisticas['advertencias']['campos_vacios'] += 1
+            estadisticas['picos_invalidos'] += 1
+            logger.warning("Fila %d: campos vacíos, omitiendo", fila + 2)
+            continue
     
-            # Intentar parsear coordenadas
-            try:
-                start = int(float(start))
-                end = int(float(end))
-            except ValueError:
-                estadisticas['errores']['formato'] += 1
-                estadisticas['picos_invalidos'] += 1
-                logger.warning(
-                    "Fila %d: error de formato en coordenadas", fila + 2)
-                continue
+        # Intentar parsear coordenadas
+        try:
+            start = int(float(start))
+            end = int(float(end))
+        except ValueError:
+            estadisticas['errores']['formato'] += 1
+            estadisticas['picos_invalidos'] += 1
+            logger.warning(
+                "Fila %d: error de formato en coordenadas", fila + 2)
+            continue
 
-            # Validar orden y valor
-            if start <= 0 or end <= 0:
-                estadisticas['errores']['coordenadas'] += 1
-                estadisticas['picos_invalidos'] += 1
-                logger.warning(
-                    "Fila %d: coordenada ≤ 0 (%d, %d)", fila + 2, start, end)
-                continue
-            if start >= end:
-                estadisticas['errores']['coordenadas'] += 1
-                estadisticas['picos_invalidos'] += 1
-                logger.warning(
-                    "Fila %d: start ≥ end (%d ≥ %d)", fila + 2, start, end)
-                continue
+        # Validar orden y valor
+        if start <= 0 or end <= 0:
+            estadisticas['errores']['coordenadas'] += 1
+            estadisticas['picos_invalidos'] += 1
+            logger.warning(
+                "Fila %d: coordenada ≤ 0 (%d, %d)", fila + 2, start, end)
+            continue
+            
+        if start >= end:
+            estadisticas['errores']['coordenadas'] += 1
+            estadisticas['picos_invalidos'] += 1
+            logger.warning(
+                "Fila %d: start ≥ end (%d ≥ %d)", fila + 2, start, end)
+            continue
         
-            if tf not in tf_coordenadas:
-                tf_coordenadas[tf] = []
-                tf_coordenadas[tf].append((start, end))
-                estadisticas['picos_validos'] += 1
-
-    except Exception as e:
-        logger.error(f"Error procesando picos: {str(e)}")
-        raise 
+        if tf not in tf_coordenadas:
+            tf_coordenadas[tf] = []
+            tf_coordenadas[tf].append((start, end))
+            estadisticas['picos_validos'] += 1
 
     # Resumen de estadísticas
     logger.info(

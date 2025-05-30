@@ -58,13 +58,19 @@ def escribir_fasta(
         creados.
     """
 
+     # Si no hay nada que procesar
+    if not tf_secuencias:
+        logger.debug("No hay secuencias.")
+        return []
+
+
     #Comprobar la ruta de salida de los archivos
     try:
         os.makedirs(output_dir, exist_ok=True)
-    except Exception as e:
+    except OSError as e:
         msg = f"No se pudo crear el directorio '{output_dir}': {e}"
         logger.error(msg)
-        raise
+        raise RuntimeError(msg)
     
     
     archivos_generados: List[str] = []
@@ -79,7 +85,7 @@ def escribir_fasta(
         try:
             with open(
                 nombre_archivo, mode="w", encoding="utf-8") as arch_salida:
-                for i, secuencia in enumerate(secuencias, start= 1):
+                for i, secuencia in enumerate(secuencias, start=1):
                     #Escribir la cabecera de cada secuencia
                     arch_salida.write(
                         f">{tf}_pico_{i}_len={len(secuencia)}\n")
@@ -94,7 +100,8 @@ def escribir_fasta(
                 nombre_archivo,
                 len(secuencias)
             )
-        except Exception as e:
+        except IOError as e:
             logger.error(f"Error generando archivo para {tf}: {str(e)}")
-    
+            raise
+
     return archivos_generados

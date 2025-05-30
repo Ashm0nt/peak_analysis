@@ -57,7 +57,8 @@ def configurar_logging(
 
     # 3) Logger raíz
     logger = logging.getLogger()
-    logger.setLevel(logging.DEBUG)
+    logger.setLevel(logging.DEBUG if verbose else logging.INFO)
+    logger.propagate = True
 
     # 4) Eliminar handlers previos
     for h in list(logger.handlers):
@@ -74,8 +75,9 @@ def configurar_logging(
     logger.addHandler(file_handler)
 
     # 7) StreamHandler para consola (INFO+ o DEBUG+ si verbose)
+    stream_level = logging.DEBUG if verbose else logging.INFO
     console_handler = logging.StreamHandler()
-    console_handler.setLevel(logging.DEBUG if verbose else logging.INFO)
+    console_handler.setLevel(stream_level)
     console_handler.setFormatter(formatter)
     logger.addHandler(console_handler)
 
