@@ -2,14 +2,62 @@
 # Extracción de sitios de unión de unión de TF obtenidos a través de ChIP-seq en _Escherichia coli_ 
 
 ### Metadatos
-- Fecha: 29-05-2025
-- Nombre: Ashley Yael Montiel Vargas 
-- Correo: yaelmont@lcg.unam.mx
+Fecha: 29-05-2025
+Nombre: Ashley Yael Montiel Vargas 
+Correo: yaelmont@lcg.unam.mx
 
 ## Resumen
 
 Este proyecto automatiza la extracción reproducible de las secuencias genómicas correspondientes a los picos de unión de 139 factores de transcripción en el genoma de Escherichia coli, obtenidos mediante ChIP-Seq. A partir de un archivo de picos y la referencia FASTA del genoma, genera automáticamente archivos FASTA individuales para cada TF, listos para su análisis de motivos.
 
+## Requisitos
+- Python 3.8 o superior
+- Sistema operativo Unix/Linux
+- Dependencias: 
+  - Pandas
+  - pytest -conv
+
+## Estructura del proyecto
+````
+peak_analysis/
+├── data/                     # Datos de entrada
+│   ├── E_coli_genome.fasta   # Genoma de referencia
+│   └── peaks_data.tsv        # Datos de picos ChIP-Seq
+│
+├── src/                      # Código fuente
+│   ├── __init__.py           
+│   ├── main.py               # Punto de entrada principal
+│   ├── args_config.py        # Manejo de argumentos
+│   ├── genome.py              # Manejo del genoma
+│   ├── peaks.py              # Procesamiento de picos
+│   ├── logging_confiig.py    # Configuración de logs
+│   └── io_utils.py           # Utilidades de entrada/salida (Escritura de archivos FASTA)
+│
+├── results/                  # Resultados generados por el programa (139 archivos)
+│
+├── docs/                     # Documentación del proyecto
+│   ├── test_cases.md         # Casos de prueba manuales
+│   └── detalles-proyecto.md   # Descripción general del proyecto
+│
+├── test/  
+│   ├── __init__.py          
+│   ├── unit/              # Punto de entrada principal
+│   │   ├── test_args_config.py        # Test de módulo
+│   │   ├── test_genome.py              # Test del módulo
+│   │   ├── test_peaks.py              # Test del módulo
+│   │   ├── test_logging_confiig.py    # Test del modulo
+│   │   └── tets_io_utils.py           # Test del modulo
+│   │
+│   └── funct/
+│       ├── conftest.py        # Archivos para test y configuración
+│       ├── test_funcional.py              # Test de entradas y funcionamiento
+│       └── tets_io_utils.py           # Test de pipeline
+│
+├── README.md                 # Este archivo
+├── LICENSE                   # Licencia del proyecto
+└── .gitignore                # Exclusiones de seguimiento en Git
+
+````
 ## Datos de entrada
 
 ### 1. Archivo de Picos
@@ -136,3 +184,5 @@ Este script está disponible bajo la licencia MIT. Consulte el archivo LICENSE p
 
 - Si utiliza este script, por favor citelo
 
+## Contacto
+Para preguntas o comentarios contactar a: Ashley Yael Motiel Vargas <yaelmont@lcg.unam.mx>
