@@ -2,9 +2,9 @@
 # Extracción de sitios de unión de unión de TF obtenidos a través de ChIP-seq en _Escherichia coli_ 
 
 ### Metadatos
-Fecha: 29-05-2025
-Nombre: Ashley Yael Montiel Vargas 
-Correo: yaelmont@lcg.unam.mx
+- Fecha: 29-05-2025
+- Nombre: Ashley Yael Montiel Vargas 
+- Correo: yaelmont@lcg.unam.mx
 
 ## Resumen
 
