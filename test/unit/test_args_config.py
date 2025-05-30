@@ -3,6 +3,11 @@ Pruebas unitarias para el módulo args_config.py
 
 Autor: Ashley Yael Montiel Vargas
 Fecha: 2025-05-29
+
+Este conjunto de pruebas valida que la configuración del parser de argumentos 
+de línea de comandos cumpla con los requisitos de flags obligatorios y 
+opcionales, valores por defecto, tipos de datos, y mensajes de ayuda 
+informativos.
 """
 
 # =============================================================================
