@@ -105,3 +105,14 @@ def escribir_fasta(
             raise
 
     return archivos_generados
+
+"""
+Comentarios:
+  Me gusta mucho como manejas los exception, son específicos y muy bien planteados en el flujo del programa. Hay cosas
+  como el uso del logger que me genera dudas, en particular cuando podrías sustituirlas por un raise como sucede con el
+  primero de los if. Aunado a ello, y como recomendación personal, agregar pequeños comentarios adyacentes a los imports
+  mejora la legibilidad, ya que con una breve oración se resalta su uso general en el script, aún si esto ya se describe
+  brevemente en el docstring principal.
+  
+  En suma, gran trabajo, ¡Enhorabuena!
+"""
