@@ -53,6 +53,12 @@ def main():
     parser = configurar_argumentos()
     args = parser.parse_args()
 
+    #Manejo de argumentos no reconocidos
+    if args.args_restantes:
+        print(f"Error: Argumentos no reconocidos: {args.args_restantes}", file=sys.stderr)
+        parser.print_help()
+        sys.exit(1)
+
     # Configurar logging
     logger = configurar_logging(args.logs, args.verbose)
 
