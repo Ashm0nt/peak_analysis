@@ -33,18 +33,17 @@ Uso:
     python3 extract_fasta.py -g ../data/E_coli_K12_MG1655_U00096.3.txt 
         -p ../data/union_peaks_file.tsv -o ../results/ --logs ../doc -v 
 
-
 """
 
 # =============================================================================
 # IMPORTS
 # =============================================================================
 import sys
-from src.args_config import configurar_argumentos
-from src.logging_config import configurar_logging
-from src.genome import cargar_genoma
-from src.peaks import lectura_peaks, extraer_secuencias
-from src.io_utils import escribir_fasta
+from args_config import configurar_argumentos
+from logging_config import configurar_logging
+from genome import cargar_genoma
+from peaks import lectura_peaks, extraer_secuencias
+from io_utils import escribir_fasta
 
 # =============================================================================
 # MAIN
