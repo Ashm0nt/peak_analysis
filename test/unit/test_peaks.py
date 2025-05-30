@@ -1,8 +1,15 @@
 """
 Pruebas unitarias para el módulo peaks.py
 
+Este conjunto de tests cubre:
+  - Lectura y validación de archivos TSV de picos (lectura_peaks).
+  - Manejo de errores: archivo inexistente, columnas faltantes,
+    formato inválido, campos vacíos y archivo vacío.
+  - Extracción de secuencias de ADN a partir de coordenadas válidas
+    e inválidas (extraer_secuencias).
+
 Autor: Ashley Yael Montiel Vargas
-Fecha: [Fecha actual]
+Fecha: 29-05-2025
 """
 
 # =============================================================================
