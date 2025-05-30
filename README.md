@@ -174,7 +174,21 @@ Extracción completada: totales=118, válidos=118, inválidos=0
 Cualquier excepción no controlada se registra con stack trace y causa el paro del programa.
 
 ## Pruebas
-Se incluye un paquete de test, con pruebas unitarias  para cada modulo, así como pruebas ejecutables.
+Se incluye un archivo markdown con casos de pruebas, los más básicos e importantes para el proyecto. Además se incluye un paquete de test con pruebas unitarias para cada modulo, así como pruebas ejecutables para evaluar el pipeline del código. 
+
+Si se rqeuire ejecutar los test:
+1. Baje el paquete de src: pip install -e
+2. O en su defecto, cambie los imports del main a una manera absoluta
+
+````python
+from src.args_config     import configurar_argumentos
+from src.genome          import cargar_genoma
+from src.peaks           import lectura_peaks, extraer_secuencias
+from src.io_utils        import escribir_fasta
+from src.logging_config  import configurar_logging
+````
+y ejecute este comando: PYTHONPATH=$PWD pytest test/funct/ -v
+
 
 ## Codigo fuente
 El código fuente está disponible en este repositorio. Se acoge con satisfacción cualquier contribución o sugerencia a través de solicitudes pull request.
