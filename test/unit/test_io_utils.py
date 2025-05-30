@@ -2,6 +2,14 @@
 """
 Pruebas unitarias para el módulo io_utils.py
 
+Este módulo valida el comportamiento de `escribir_fasta()` en distintos
+escenarios:
+  - Escritura exitosa de FASTA para múltiples TFs.
+  - Creación automática del directorio de salida.
+  - Omisión cuando no hay secuencias.
+  - Formateo de líneas según `chars_por_linea`.
+  - Manejo de errores al crear directorios y al escribir archivos.
+
 Autor: Ashley Yael Montiel Vargas
 Fecha: 2025-05-29
 """
