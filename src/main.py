@@ -27,6 +27,7 @@ Argumentos:
     -o, --outdir: Directorio de salida de los archivos generados
     --logs: Directorio de salida del log
     -l, --line_lenght: Formato para las secuencias de fasta (opcional)
+    --verbose: Activar log DEBUG
 
 Uso:
     python3 extract_fasta.py -g ../data/E_coli_K12_MG1655_U00096.3.txt 
@@ -39,11 +40,11 @@ Uso:
 # IMPORTS
 # =============================================================================
 import sys
-from args_config import configurar_argumentos
-from logging_config import configurar_logging
-from genome import cargar_genoma
-from peaks import lectura_peaks, extraer_secuencias
-from io_utils import escribir_fasta
+from .args_config import configurar_argumentos
+from .logging_config import configurar_logging
+from .genome import cargar_genoma
+from .peaks import lectura_peaks, extraer_secuencias
+from .io_utils import escribir_fasta
 
 # =============================================================================
 # MAIN
