@@ -99,8 +99,8 @@ def lectura_peaks(peaks_path: str) -> Dict[str, List[Tuple[int, int]]]:
             estadisticas['picos_totales'] += 1
         
             tf = (valores["TF_name"] or "").strip()
-            start = (valores["Peak_start"] or "").strip()
-            end = (valores["Peak_end"] or "").strip()
+            start = (valores["Peak_start"] or "")
+            end = (valores["Peak_end"] or "")
             
             if not (tf and start and end):
                 estadisticas['advertencias']['campos_vacios'] += 1

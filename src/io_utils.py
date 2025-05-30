@@ -64,7 +64,7 @@ def escribir_fasta(
         try:
             with open(
                 nombre_archivo, mode="w", encoding="utf-8") as arch_salida:
-                for i, secuencia in enumerate(secuencias, star= 1):
+                for i, secuencia in enumerate(secuencias, start= 1):
                     #Escribir la cabecera de cada secuencia
                     arch_salida.write(
                         f">{tf}_pico_{i}_len={len(secuencia)}\n")
