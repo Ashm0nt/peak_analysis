@@ -40,11 +40,11 @@ Uso:
 # IMPORTS
 # =============================================================================
 import sys
-from .args_config import configurar_argumentos
-from .logging_config import configurar_logging
-from .genome import cargar_genoma
-from .peaks import lectura_peaks, extraer_secuencias
-from .io_utils import escribir_fasta
+from src.args_config import configurar_argumentos
+from src.logging_config import configurar_logging
+from src.genome import cargar_genoma
+from src.peaks import lectura_peaks, extraer_secuencias
+from src.io_utils import escribir_fasta
 
 # =============================================================================
 # MAIN
@@ -52,6 +52,14 @@ from .io_utils import escribir_fasta
 def main():
     # Configurar y parsear argumentos
     parser = configurar_argumentos()
+
+    # Detectar opciones no reconocidas antes de parsear
+    valid_opts = set(parser._option_string_actions.keys())
+    for raw in sys.argv[1:]:
+        # separar "--foo=bar" → "--foo"
+        opt = raw.split("=", 1)[0]
+        if opt.startswith("-") and opt not in valid_opts:
+            parser.error(f"unrecognized argument: {opt}")
     args = parser.parse_args()
 
     #Manejo de argumentos no reconocidos
