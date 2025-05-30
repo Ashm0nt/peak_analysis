@@ -174,6 +174,9 @@ def lectura_peaks(peaks_path: str) -> Dict[str, List[Tuple[int, int]]]:
             tf_coordenadas[tf] = [(start, end)]
             estadisticas['picos_validos'] += 1
 
+        for tf, listas in tf_coordenadas.items():
+            logger.debug(f"{tf}: {len(listas)} secuencias extraídas")
+
 
     # Resumen de estadísticas
     logger.info(
