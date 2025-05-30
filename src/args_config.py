@@ -34,5 +34,8 @@ def configurar_argumentos():
     parser.add_argument("-l", "--line_length", type=int, default=80,
                       help="Número de caracteres por línea en el archivo FASTA")
     
+    # Manejar argumentos desconocidos
+    parser.add_argument('args_restantes', nargs=argparse.REMAINDER)
+    
     return parser
 
