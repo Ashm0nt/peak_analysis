@@ -1,10 +1,22 @@
 
 """
-Configuración centralizada del sistema de logging
 
-Autor: Ashley Yael Montiel Vargas
-Fecha: 29-Mayo-2025
-Versión: 4.2
+Este módulo proporciona la función `configurar_logging`, que:
+
+  1. Crea (si no existe) el directorio de logs.
+  2. Genera un archivo de log con nombre `log_YYYYMMDD_HHMMSS.log`.
+  3. Configura un `FileHandler` para capturar TODOS los niveles (DEBUG+).
+  4. Configura un `StreamHandler` para consola (INFO+ por defecto, DEBUG si verbose).
+  5. Elimina handlers previos para evitar entradas duplicadas.
+
+Autor:
+    Ashley Yael Montiel Vargas <yaelmont@lcg.unam.mx>
+
+Fecha:
+    29 de mayo de 2025
+
+Versión:
+    4.3
 """
 
 # =============================================================================
