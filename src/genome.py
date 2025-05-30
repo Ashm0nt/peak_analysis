@@ -1,9 +1,29 @@
 """
-Módulo para la validación y lectura del archivos FASTA 
+Módulo para la carga y validación de archivos FASTA de genoma.
 
-Autor: Ashley Yael Montiel Vargas
-Fecha: 29-Mayo-2025
-Versión: 5.0
+Contiene:
+
+  - cargar_genoma(genoma_path: str) -> str
+    ------------------------------------------------------------
+    Lee un archivo FASTA completo y devuelve la secuencia concatenada
+    en mayúsculas. Realiza las siguientes comprobaciones:
+
+      * Verifica que el fichero exista y sea accesible.
+      * Valida que la primera línea comience con '>'.
+      * Ignora cabezales secundarios y concatena solo las líneas de
+        secuencia.
+      * Comprueba que la secuencia no esté vacía.
+      * Maneja errores de formato, archivo inexistente y problemas
+        de codificación.
+
+Autor:
+    Ashley Yael Montiel Vargas <yaelmont@lcg.unam.mx>
+
+Fecha:
+    29 de mayo de 2025
+
+Versión:
+    5.1
 """
 # =============================================================================
 # IMPORTS
